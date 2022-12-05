@@ -69,6 +69,24 @@ public class Noeud {
 			System.out.println("!!!" + nouveauStagiaire + " existe déjà! T'es fatiguéeee !!!");
 		}
 	}
+
+	public Noeud rechercherStagiaire(Stagiaire stagiaire) {
+		if (this.cle.compareTo(stagiaire) == 0) {
+			return this;
+		} else if(this.cle.compareTo(stagiaire) < 0) {
+			if(this.filsDroit == null) {
+				return null;
+			} else {
+				return this.filsDroit.rechercherStagiaire(stagiaire);
+			}
+		} else {
+			if(this.filsGauche == null) {
+				return null;
+			} else {
+				return this.filsGauche.rechercherStagiaire(stagiaire);
+			}
+		}
+	}
 	
 	
 }

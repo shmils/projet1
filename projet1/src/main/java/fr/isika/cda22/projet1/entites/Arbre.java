@@ -41,4 +41,12 @@ public class Arbre {
 		}
 	}
 	
+	public Noeud rechercherStagiaire(Stagiaire stagiaire) {
+		if(this.isEmpty()) {
+			return null;
+		} else {
+			return this.racine.rechercherStagiaire(stagiaire);
+		}
+	}
+	
 }

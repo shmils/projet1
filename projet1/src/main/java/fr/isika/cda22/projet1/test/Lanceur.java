@@ -25,14 +25,16 @@ public class Lanceur {
 		
 		Arbre monArbre = new Arbre();
 		System.out.println(monArbre);
-//		monArbre.setRacine(n1);
-		monArbre.ajouterStagiaire(lilia);
+		monArbre.setRacine(n1);
+//		monArbre.ajouterStagiaire(lilia);
 //		System.out.println(n1);
 		monArbre.ajouterStagiaire(adrien);
 		monArbre.ajouterStagiaire(paul);
 		
 		System.out.println(monArbre);
-				
+		System.out.println(monArbre.rechercherStagiaire(paul));
+		System.out.println(monArbre.rechercherStagiaire(hossein));
+		System.out.println(monArbre.rechercherStagiaire(adrien1));
 	}
 	
 }
