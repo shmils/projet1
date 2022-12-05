@@ -1,7 +1,6 @@
 package fr.isika.cda22.projet1.test;
 
-import fr.isika.cda22.projet1.entites.Noeud;
-import fr.isika.cda22.projet1.entites.Stagiaire;
+import fr.isika.cda22.projet1.entites.*;
 
 public class Lanceur {
 
@@ -20,14 +19,20 @@ public class Lanceur {
 //		System.out.println(n1);
 		
 		n1.ajouterStagiaire(hossein);
-		n1.ajouterStagiaire(adrien);
-		n1.ajouterStagiaire(paul);
-		n1.ajouterStagiaire(adrien1);
+//		n1.ajouterStagiaire(adrien);
+//		n1.ajouterStagiaire(paul);
+//		n1.ajouterStagiaire(adrien1);
 		
-		System.out.println(n1);
+		Arbre monArbre = new Arbre();
+		System.out.println(monArbre);
+//		monArbre.setRacine(n1);
+		monArbre.ajouterStagiaire(lilia);
+//		System.out.println(n1);
+		monArbre.ajouterStagiaire(adrien);
+		monArbre.ajouterStagiaire(paul);
 		
-		n1.ajouterStagiaire(lilia);
-		
+		System.out.println(monArbre);
+				
 	}
 	
 }
