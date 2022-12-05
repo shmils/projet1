@@ -53,12 +53,12 @@ public class Stagiaire extends Personne{
 			if(this.getPrenom().compareTo(autreStagiaire.getPrenom()) == 0) {
 				if(this.getLocalisation() == autreStagiaire.getLocalisation()) {
 					if(this.nomFormation.compareTo(autreStagiaire.nomFormation) == 0) {
-						return autreStagiaire.anneePromo - this.anneePromo;
+						return this.anneePromo - autreStagiaire.anneePromo;
 					}else {
 						return this.nomFormation.compareTo(autreStagiaire.nomFormation);
 					}
 				} else {
-					return autreStagiaire.localisation - this.localisation;
+					return this.localisation - autreStagiaire.localisation;
 				}
 			} else {
 				this.getPrenom().compareTo(autreStagiaire.getPrenom());
