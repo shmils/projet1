@@ -2,13 +2,17 @@ package fr.isika.cda22.projet1.entites;
 
 public class Stagiaire extends Personne{
 	
+	//attributs static
+	private final static int TAILLE_MAX_STRING = 12; //un string ne contient pas plus que 12 characters
+	private final static int TAILLE_STAGIAIRE_OCTET = 5*(2*TAILLE_MAX_STRING); //nb Attribut String* (octet(Char)*Taille Max)
+	
 	//attributs
-	private int localisation;
+	private String localisation;
 	private String nomFormation;
-	private int anneePromo;
+	private String anneePromo;
 	
 	//constructeur
-	public Stagiaire(String nom, String prenom, int localisation, String nomFormation, int anneePromo) {
+	public Stagiaire(String nom, String prenom, String localisation, String nomFormation, String anneePromo) {
 		super(nom, prenom);
 		this.localisation = localisation;
 		this.nomFormation = nomFormation;
@@ -16,11 +20,20 @@ public class Stagiaire extends Personne{
 	}
 	
 	//getters & setters
-	public int getLocalisation() {
+	
+	public static int getTailleMaxString() {
+		return TAILLE_MAX_STRING;
+	}
+
+	public static int getTailleStagiaireOctet() {
+		return TAILLE_STAGIAIRE_OCTET;
+	}
+		
+	public String getLocalisation() {
 		return localisation;
 	}
 
-	public void setLocalisation(int localisation) {
+	public void setLocalisation(String localisation) {
 		this.localisation = localisation;
 	}
 
@@ -32,15 +45,14 @@ public class Stagiaire extends Personne{
 		this.nomFormation = nomFormation;
 	}
 
-	public int getAnneePromo() {
+	public String getAnneePromo() {
 		return anneePromo;
 	}
 
-	public void setAnneePromo(int anneePromo) {
+	public void setAnneePromo(String anneePromo) {
 		this.anneePromo = anneePromo;
 	}
 
-		
 	//methodes specifiques
 	@Override
 	public String toString() {
@@ -53,12 +65,12 @@ public class Stagiaire extends Personne{
 			if(this.getPrenom().compareTo(autreStagiaire.getPrenom()) == 0) {
 				if(this.getLocalisation() == autreStagiaire.getLocalisation()) {
 					if(this.nomFormation.compareTo(autreStagiaire.nomFormation) == 0) {
-						return this.anneePromo - autreStagiaire.anneePromo;
+						return this.anneePromo.compareTo(autreStagiaire.anneePromo);
 					}else {
 						return this.nomFormation.compareTo(autreStagiaire.nomFormation);
 					}
 				} else {
-					return this.localisation - autreStagiaire.localisation;
+					return this.localisation.compareTo(autreStagiaire.localisation);
 				}
 			} else {
 				this.getPrenom().compareTo(autreStagiaire.getPrenom());
