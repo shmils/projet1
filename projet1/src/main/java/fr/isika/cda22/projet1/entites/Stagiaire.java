@@ -92,4 +92,35 @@ public class Stagiaire extends Personne{
 		}
 	}
 	
+	public static Stagiaire readStagiaireBin(RandomAccessFile raf, int indiceDebut) {
+		try {
+			raf.seek(indiceDebut);
+			String nom = "";
+			for(int j = 0; j < Stagiaire.getTailleMaxString(); j++) {
+				nom += raf.readChar();
+			}
+			String prenom = "";
+			for(int j = 0; j < Stagiaire.getTailleMaxString(); j++) {
+				prenom += raf.readChar();
+			}
+			String localisation = "";
+			for(int j = 0; j < Stagiaire.getTailleMaxString(); j++) {
+				localisation += raf.readChar();
+			}
+			String nomFormation = "";
+			for(int j = 0; j < Stagiaire.getTailleMaxString(); j++) {
+				nomFormation += raf.readChar();
+			}
+			String anneePromo = "";
+			for(int j = 0; j < Stagiaire.getTailleMaxString(); j++) {
+				anneePromo += raf.readChar();
+			}
+			return new Stagiaire(nom.trim(), prenom.trim(), localisation.trim(), nomFormation.trim(), anneePromo.trim());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
 }
