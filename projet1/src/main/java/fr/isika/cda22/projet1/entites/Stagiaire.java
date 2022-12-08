@@ -64,4 +64,22 @@ public class Stagiaire extends Personne{
 		return autreStagiaire.getNom().compareTo(this.getNom());
 	}
 	
+	public String longString(String s) {
+		String sLong = s;
+		if(sLong.length() > TAILLE_MAX_STRING) {
+			sLong  = sLong.substring(0,TAILLE_MAX_STRING);
+		}else {
+			for(int i = sLong.length(); i < TAILLE_MAX_STRING; i++) {
+				sLong += " ";
+			}
+		}
+		return sLong;
+	}
+	
+	public String longToString() {
+		return longString(this.getNom()) + longString(this.getPrenom()) + longString(this.localisation) +
+				longString(this.nomFormation) + longString(this.anneePromo);
+	}
+	
+	
 }
