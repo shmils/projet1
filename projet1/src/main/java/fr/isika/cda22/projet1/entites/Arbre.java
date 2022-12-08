@@ -32,22 +32,23 @@ public class Arbre {
 
 	//methodes specifiques
 	public boolean isEmpty() {
-	try {
-		return (this.raf.length() == 0);
-	} catch (IOException e) {
-		e.printStackTrace();
+		try {
+			return (this.raf.length() == 0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
-	return true;
-}
+
+	@Override
+	public String toString() {
+		if (this.isEmpty()) {
+			return "Arbre est vide";
+		}else {
+			return Noeud.readNoeudBin(raf, this.indiceRacine).toString(raf);
+		}
+	}
 	
-//	public String toString() {
-//		if(this.isEmpty()) {
-//			return "Arbre vide";
-//		} else {
-//			return this.racine.toString();
-//		}
-//	}
-//	
 //	public void ajouterStagiaire(Stagiaire nouveauStagiaire) {
 //		if(this.isEmpty()) {
 //			this.racine = new Noeud(nouveauStagiaire, null, null);
