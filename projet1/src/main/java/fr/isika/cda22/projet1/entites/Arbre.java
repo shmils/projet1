@@ -31,10 +31,15 @@ public class Arbre {
 	}
 
 	//methodes specifiques
-//	public boolean isEmpty() {
-//		return (this.racine == null);
-//	}
-//	
+	public boolean isEmpty() {
+	try {
+		return (this.raf.length() == 0);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	return true;
+}
+	
 //	public String toString() {
 //		if(this.isEmpty()) {
 //			return "Arbre vide";
