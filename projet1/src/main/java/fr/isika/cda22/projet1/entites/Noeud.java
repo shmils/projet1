@@ -104,17 +104,10 @@ public class Noeud {
 		}
 	}
 	
-//	public String toString() {
-//		String s = "";
-//		if(this.filsGauche != null) {
-//			s += this.filsGauche.toString();
-//		}
-//		s += this.cle.toString();
-//		if(this.filsDroit != null) {
-//			s += this.filsDroit.toString();
-//		}
-//		return s;
-//	}
+	@Override @Deprecated
+	public String toString() {
+		return "Method deprecated: utiliser la methode String toString(RandomAccessFile raf)";
+	}
 	
 //	public void ajouterStagiaire(Stagiaire nouveauStagiaire) {
 //		if(this.cle.compareTo(nouveauStagiaire) < 0) {
