@@ -1,5 +1,8 @@
 package fr.isika.cda22.projet1.entites;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 public class Stagiaire extends Personne{
 	
 	//attributs static
@@ -81,5 +84,12 @@ public class Stagiaire extends Personne{
 				longString(this.nomFormation) + longString(this.anneePromo);
 	}
 	
+	public void writeStagiaireToBin(RandomAccessFile raf) {
+		try {
+			raf.writeChars(this.longToString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
