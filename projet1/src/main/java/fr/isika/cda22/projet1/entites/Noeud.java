@@ -1,5 +1,8 @@
 package fr.isika.cda22.projet1.entites;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 public class Noeud {
 	
 	//attributs static
@@ -64,6 +67,19 @@ public class Noeud {
 	}
 
 	//methodes specifique
+	public static Noeud readNoeudBin(RandomAccessFile raf, int indiceDebut) {
+		try {
+			indiceDebut *= TAILLE_NOEUD_OCTET;
+			Stagiaire temp = Stagiaire.readStagiaireBin(raf, indiceDebut);
+			Noeud n = new Noeud(temp, raf.readInt(), raf.readInt(), raf.readInt());
+			return n;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 //	public String toString() {
 //		String s = "";
 //		if(this.filsGauche != null) {
