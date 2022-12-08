@@ -92,6 +92,18 @@ public class Noeud {
 		}
 	}
 	
+	public void writeNoeudBin(RandomAccessFile raf, int indiceDebut) {
+		try {
+			raf.seek(indiceDebut*TAILLE_NOEUD_OCTET);
+			this.getCle().writeStagiaireToBin(raf);
+			raf.writeInt(this.getIndiceFG());
+			raf.writeInt(this.getIndiceFD());
+			raf.writeInt(this.getIndiceDB());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 //	public String toString() {
 //		String s = "";
 //		if(this.filsGauche != null) {
