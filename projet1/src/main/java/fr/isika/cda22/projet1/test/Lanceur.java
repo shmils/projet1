@@ -1,5 +1,7 @@
 package fr.isika.cda22.projet1.test;
 
+import java.io.IOException;
+
 import fr.isika.cda22.projet1.entites.*;
 
 public class Lanceur {
@@ -16,7 +18,11 @@ public class Lanceur {
 		
 		Noeud n1 = new Noeud(lilia);
 		
-//		Arbre monArbre = new Arbre();
+		try {
+			Arbre monArbre = new Arbre("src/main/java/fr/isika/cda22/projet1/fichiers/monArbre.bin");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 //		System.out.println(monArbre);
 //		monArbre.ajouterStagiaire(adrien);
 //		monArbre.ajouterStagiaire(paul);
