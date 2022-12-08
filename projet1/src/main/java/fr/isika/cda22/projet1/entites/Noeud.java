@@ -109,6 +109,24 @@ public class Noeud {
 		return "Method deprecated: utiliser la methode String toString(RandomAccessFile raf)";
 	}
 	
+	public String toString(RandomAccessFile raf) {
+		String s = "";
+		if (this.indiceFG != -1) {
+			Noeud fg = Noeud.readNoeudBin(raf, indiceFG);
+			s += fg.toString(raf);
+		}
+		s += this.cle.toString() + " ";
+		if (this.indiceDB != -1) {
+			Noeud db = Noeud.readNoeudBin(raf, indiceDB);
+			s += db.toString(raf);
+		}
+		if (this.indiceFD != -1) {
+			Noeud fd = Noeud.readNoeudBin(raf, indiceFD);
+			s += fd.toString(raf);
+		}
+		return s;
+	}
+	
 //	public void ajouterStagiaire(Stagiaire nouveauStagiaire) {
 //		if(this.cle.compareTo(nouveauStagiaire) < 0) {
 //			if(this.filsDroit == null) {
