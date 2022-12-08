@@ -127,23 +127,45 @@ public class Noeud {
 		return s;
 	}
 	
-//	public void ajouterStagiaire(Stagiaire nouveauStagiaire) {
-//		if(this.cle.compareTo(nouveauStagiaire) < 0) {
-//			if(this.filsDroit == null) {
-//				this.filsDroit = new Noeud(nouveauStagiaire, null, null);
-//			} else {
-//				this.filsDroit.ajouterStagiaire(nouveauStagiaire);
-//			}
-//		} else if(this.cle.compareTo(nouveauStagiaire) > 0){
-//			if(this.filsGauche == null) {
-//				this.filsGauche  = new Noeud(nouveauStagiaire, null, null);
-//			} else {
-//				this.filsGauche.ajouterStagiaire(nouveauStagiaire);
-//			}
-//		} else {
-//			System.out.println("!!!" + nouveauStagiaire + " existe déjà! T'es fatiguéeee !!!");
-//		}
-//	}
+	public void ajouterNoeud(Stagiaire cleAjouter, RandomAccessFile raf) {
+		try {
+			if(this.cle.compareTo(cleAjouter) > 0) { //si cleAjouter > this.cle
+				if(this.indiceFD == -1) {
+					this.indiceFD = (int) (raf.length() / TAILLE_NOEUD_OCTET);
+					raf.seek(raf.getFilePointer() - 2*4);
+					raf.writeInt(this.indiceFD);
+					Noeud.writeNoeudBin(cleAjouter, raf);
+				} else {
+					Noeud fd = Noeud.readNoeudBin(raf, this.indiceFD);
+					fd.ajouterNoeud(cleAjouter, raf);
+				}
+			} else if(this.cle.compareTo(cleAjouter) < 0) {
+				if(this.indiceFG == -1) {
+					this.indiceFG = (int) (raf.length() / TAILLE_NOEUD_OCTET);
+					raf.seek(raf.getFilePointer() - 3*4);
+					raf.writeInt(this.indiceFG);
+					Noeud.writeNoeudBin(cleAjouter, raf);
+				} else {
+					Noeud fg = Noeud.readNoeudBin(raf, this.indiceFG);
+					fg.ajouterNoeud(cleAjouter, raf);
+				}
+			}else {
+				if(this.indiceDB == -1) {
+					this.indiceDB = (int) (raf.length() / TAILLE_NOEUD_OCTET);
+					raf.seek(raf.getFilePointer() - 1*4);
+					raf.writeInt(this.indiceDB);
+					Noeud.writeNoeudBin(cleAjouter, raf);
+				} else {
+					Noeud db = Noeud.readNoeudBin(raf, this.indiceDB);
+					db.ajouterNoeud(cleAjouter, raf);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 //
 //	public Noeud rechercherStagiaire(Stagiaire stagiaire) {
 //		if (this.cle.compareTo(stagiaire) == 0) {
