@@ -59,23 +59,9 @@ public class Stagiaire extends Personne{
 		return "(" + super.getNom() + " " + super.getPrenom() + " " + localisation + " " + nomFormation + " " + anneePromo + ")";
 	}
 	
+	//comparaison : ordre alphabetique du nom
 	public int compareTo(Stagiaire autreStagiaire) {
-		if(this.getNom().compareTo(autreStagiaire.getNom()) == 0) {
-			if(this.getPrenom().compareTo(autreStagiaire.getPrenom()) == 0) {
-				if(this.getLocalisation() == autreStagiaire.getLocalisation()) {
-					if(this.nomFormation.compareTo(autreStagiaire.nomFormation) == 0) {
-						return this.anneePromo.compareTo(autreStagiaire.anneePromo);
-					}else {
-						return this.nomFormation.compareTo(autreStagiaire.nomFormation);
-					}
-				} else {
-					return this.localisation.compareTo(autreStagiaire.localisation);
-				}
-			} else {
-				this.getPrenom().compareTo(autreStagiaire.getPrenom());
-			} 
-		} return this.getNom().compareTo(autreStagiaire.getNom());
-		
+		return autreStagiaire.getNom().compareTo(this.getNom());
 	}
 	
 }
