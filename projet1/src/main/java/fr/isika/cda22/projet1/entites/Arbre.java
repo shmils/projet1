@@ -49,14 +49,16 @@ public class Arbre {
 		}
 	}
 	
-//	public void ajouterStagiaire(Stagiaire nouveauStagiaire) {
-//		if(this.isEmpty()) {
-//			this.racine = new Noeud(nouveauStagiaire, null, null);
-//		} else {
-//			this.racine.ajouterStagiaire(nouveauStagiaire);
-//		}
-//	}
-//	
+	public void ajouterStagiaire(Stagiaire stagiaire) throws IOException {
+		if(this.isEmpty()) {
+			Noeud.writeNoeudBin(stagiaire, raf);
+		}else {
+			Noeud n0 = Noeud.readNoeudBin(raf, this.indiceRacine);
+			n0.ajouterNoeud(stagiaire, raf);
+		}
+	}
+	
+	
 //	public Noeud rechercherStagiaire(Stagiaire stagiaire) {
 //		if(this.isEmpty()) {
 //			return null;
