@@ -56,8 +56,7 @@ public class Stagiaire extends Personne{
 	//methodes specifiques
 	@Override
 	public String toString() {
-		return "Stagiaire [nom =" + this.getNom() + ", prenom ="+ this.getPrenom() + ", localisation=" + localisation + ", nomFormation=" + nomFormation + ", anneePromo="
-				+ anneePromo + "]";
+		return "(" + super.getNom() + " " + super.getPrenom() + " " + localisation + " " + nomFormation + " " + anneePromo + ")";
 	}
 	
 	public int compareTo(Stagiaire autreStagiaire) {
