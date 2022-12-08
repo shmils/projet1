@@ -74,10 +74,22 @@ public class Noeud {
 			Noeud n = new Noeud(temp, raf.readInt(), raf.readInt(), raf.readInt());
 			return n;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void writeNoeudBin(Stagiaire cleAjouter, RandomAccessFile raf) {
+		try {
+			long length = raf.length();
+			raf.seek(length);
+			cleAjouter.writeStagiaireToBin(raf);
+			raf.writeInt(-1);
+			raf.writeInt(-1);
+			raf.writeInt(-1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 //	public String toString() {
