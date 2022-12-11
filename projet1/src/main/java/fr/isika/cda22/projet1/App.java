@@ -16,18 +16,23 @@ public class App extends Application {
 	public VueStagiaire vueStagiaire;
 	public VueEnregistrement vueEnregistrement;
 	public VueModification vueModification;
-	
+	public VueLogin vueLogin;
+
     @Override
     public void start(Stage stage) {
     	vueStagiaire = new VueStagiaire();
     	vueEnregistrement = new VueEnregistrement();
     	vueModification = new VueModification("milany", "hossein", "45", "cda al 22", "2022");
+    	vueLogin = new VueLogin();
+    	
+    	vueLogin.btnLogin.setOnAction(event ->{
+    		vueLogin.authentifier(vueLogin.txtlabelNom.getText(), 
+    				vueLogin.txtMotdePass.getText(),vueLogin.cbAdmin.isSelected());			
+		});
     	
 		stage.setResizable(false);
 		stage.setTitle("Liste des stagiaires");
-//		stage.setScene(vueStagiaire);
-		stage.setScene(vueEnregistrement);
-		
+		stage.setScene(vueLogin);
 		stage.show();
     }
 

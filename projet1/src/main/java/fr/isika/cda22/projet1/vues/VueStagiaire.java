@@ -44,7 +44,6 @@ public class VueStagiaire extends Scene {
 		
 		//instacie listeCriteres
 		listCriteres = new ArrayList<>();
-		
 		listCriteres.add("Nom");
 		listCriteres.add("Prenom");
 		listCriteres.add("Localisation");

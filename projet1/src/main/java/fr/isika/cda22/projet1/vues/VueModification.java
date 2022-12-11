@@ -16,6 +16,6 @@ public class VueModification extends VueEnregistrement{
 		this.getTfFormation().setText(tfFormation);
 		this.getTfAnneePromo().setText(tfAnneePromo);
 		getBtnConfirmation().setText("Modification");
-		
 	}
+	
 }

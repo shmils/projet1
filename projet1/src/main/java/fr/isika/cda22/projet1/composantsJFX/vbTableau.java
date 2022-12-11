@@ -14,20 +14,19 @@ import javafx.scene.layout.VBox;
 public class vbTableau extends VBox {
 
 	public  vbTableau() {
-		//super(new GridPane(), 650, 400);
-		//GridPane grille = (GridPane) this.getRoot();
 		super(5);
 		// Création de la table
 		TableView<Stagiaire> table = new TableView<Stagiaire>();
 		table.setEditable(true);
 		
 		// Création des cinq colonnes
+
 		// Nom
 		TableColumn<Stagiaire, String> nomCol = new TableColumn<Stagiaire, String>("Nom");
 		nomCol.setMinWidth(120);
-
 		// Spécifier comment remplir la donnée pour chaque cellule de cette colonne
 		nomCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("nom"));
+		
 		// Prénom
 		TableColumn<Stagiaire, String> prenomCol = new TableColumn<Stagiaire, String>("Prénom");
 		prenomCol.setMinWidth(120);
@@ -40,17 +39,17 @@ public class vbTableau extends VBox {
 
 		localisationCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("localisation"));
 
-		// Nom de la Promotion
+		// Nom de la Formation
 		TableColumn<Stagiaire, String> nomPromoCol = new TableColumn<Stagiaire, String>("Nom de la \nPromotion");
 		nomPromoCol.setMinWidth(120);
-
 		nomPromoCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("nomFormation"));
+		
 		// Année de la promotion
 		TableColumn<Stagiaire, String> anneePromoCol = new TableColumn<Stagiaire, String>("Année de la \nPromotion");
 		anneePromoCol.setMinWidth(120);
 		anneePromoCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("anneePromo"));
 
-	// On ajoute les cinq colonnes à la table
+		// On ajoute les cinq colonnes à la table
 		table.getColumns().addAll(nomCol, prenomCol, localisationCol, nomPromoCol, anneePromoCol);
 
 		table.setItems(getStagiaireList());
