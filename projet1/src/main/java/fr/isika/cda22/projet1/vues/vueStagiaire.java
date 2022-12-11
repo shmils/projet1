@@ -1,5 +1,7 @@
 package fr.isika.cda22.projet1.vues;
 
+import java.util.ArrayList;
+
 import fr.isika.cda22.projet1.composantsJFX.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -32,13 +34,22 @@ import javafx.stage.Stage;
 public class vueStagiaire extends Scene {
 
 	private vbTableau vbTableau;
-	private ObservableList<String> listCriteres; 
+	private ArrayList<String> listCriteres; 
 	
 	public vueStagiaire() {
 	
 		super(new VBox(), 700, 800);
 
 		VBox fenetre = (VBox) this.getRoot();
+		
+		//instacie listeCriteres
+		listCriteres = new ArrayList<>();
+		
+		listCriteres.add("Nom");
+		listCriteres.add("Prenom");
+		listCriteres.add("Localisation");
+		listCriteres.add("Nom de la Promo");
+		listCriteres.add("Annee de la Promo");
 		
 		// Fond en couleur de l'arrière plan
 		fenetre.setStyle("-fx-background-color:beige");
@@ -124,6 +135,7 @@ public class vueStagiaire extends Scene {
 				}
 			}
 		});
+		
 		Supprimer.setDisable(true);
 		Supprimer.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -153,10 +165,8 @@ public class vueStagiaire extends Scene {
 				TextField tf = (TextField) ((HBox)hb).getChildren().get(1);
 				System.out.println(tf.getText());
 				}				
-			}
-			
+			}	
 		});
-		
 		
 		// VBox
 		HBox CritereRechercheMulti = new HBox(5, Criteres, Boutons);
@@ -245,7 +255,7 @@ public class vueStagiaire extends Scene {
 	public HBox creerHbCritere(int Integer) {
 		HBox HB = new HBox(5);
 		ChoiceBox critere = new ChoiceBox();
-		critere.setItems(this.listCriteres);
+		critere.setItems(FXCollections.observableArrayList(this.listCriteres));
 		critere.getSelectionModel().select(Integer);
 		TextField TF = new TextField();
 		HB.getChildren().addAll(critere, TF);
@@ -256,4 +266,5 @@ public class vueStagiaire extends Scene {
 		
 
 	}
+	
 	}
