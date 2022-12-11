@@ -1,17 +1,17 @@
 package fr.isika.cda22.projet1.test;
 
-import fr.isika.cda22.projet1.vues.vueStagiaire;
+import fr.isika.cda22.projet1.vues.VueStagiaire;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class testVueStagiaire extends Application {
 	//Attribut 
 	
-		public vueStagiaire vueStagiaire;
+		public VueStagiaire vueStagiaire;
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		vueStagiaire = new vueStagiaire();
+		vueStagiaire = new VueStagiaire();
 		
 		stage.setResizable(false);
 		stage.setTitle("Liste des stagiaires");

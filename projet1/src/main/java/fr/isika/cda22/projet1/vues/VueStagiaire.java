@@ -31,12 +31,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class vueStagiaire extends Scene {
+public class VueStagiaire extends Scene {
 
 	private vbTableau vbTableau;
 	private ArrayList<String> listCriteres; 
 	
-	public vueStagiaire() {
+	public VueStagiaire() {
 	
 		super(new VBox(), 700, 800);
 

@@ -1,6 +1,6 @@
 package fr.isika.cda22.projet1;
 
-import fr.isika.cda22.projet1.vues.vueStagiaire;
+import fr.isika.cda22.projet1.vues.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -13,15 +13,20 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 	
-	public vueStagiaire vueStagiaire;
+	public VueStagiaire vueStagiaire;
+	public VueEnregistrement vueEnregistrement;
+	public VueModification vueModification;
 	
     @Override
     public void start(Stage stage) {
-    	vueStagiaire = new vueStagiaire();
-		
+    	vueStagiaire = new VueStagiaire();
+    	vueEnregistrement = new VueEnregistrement();
+    	vueModification = new VueModification("milany", "hossein", "45", "cda al 22", "2022");
+    	
 		stage.setResizable(false);
 		stage.setTitle("Liste des stagiaires");
-		stage.setScene(vueStagiaire);
+//		stage.setScene(vueStagiaire);
+		stage.setScene(vueEnregistrement);
 		
 		stage.show();
     }
