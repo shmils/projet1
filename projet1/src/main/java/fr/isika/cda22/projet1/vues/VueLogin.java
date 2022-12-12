@@ -25,9 +25,9 @@ public class VueLogin extends Scene{
 
 	private ArrayList<Formatteur> Utilisateur;
 	private Button btnLogin;
-	private TextField txtlabelNom;
+	private TextField tfNom;
 	private CheckBox cbAdmin;
-	private TextField txtMotdePass;
+	private PasswordField PfMotdePass;
 	
 	public ArrayList<Formatteur> getUtilisateur() {
 		return Utilisateur;
@@ -45,12 +45,12 @@ public class VueLogin extends Scene{
 		this.btnLogin = btnLogin;
 	}
 
-	public TextField getTxtlabelNom() {
-		return txtlabelNom;
+	public TextField getTfNom() {
+		return tfNom;
 	}
 
-	public void setTxtlabelNom(TextField txtlabelNom) {
-		this.txtlabelNom = txtlabelNom;
+	public void setTfNom(TextField tfNom) {
+		this.tfNom = tfNom;
 	}
 
 	public CheckBox getCbAdmin() {
@@ -61,12 +61,12 @@ public class VueLogin extends Scene{
 		this.cbAdmin = cbAdmin;
 	}
 
-	public TextField getTxtMotdePass() {
-		return txtMotdePass;
+	public PasswordField getPfMotdePass() {
+		return PfMotdePass;
 	}
 
-	public void setTxtMotdePass(TextField txtMotdePass) {
-		this.txtMotdePass = txtMotdePass;
+	public void setPfMotdePass(PasswordField txtMotdePass) {
+		this.PfMotdePass = txtMotdePass;
 	}
 
 	public VueLogin() {
@@ -135,18 +135,18 @@ public class VueLogin extends Scene{
 		labelNom.setTextFill(Color.SADDLEBROWN);
 		labelNom.setFont(Font.font("Calibri",20));
 		
-		txtlabelNom= new TextField();
+		tfNom= new TextField();
 			
 		
 		Label labelMotdePass = new Label("Password");
 		labelMotdePass.setTextFill(Color.SADDLEBROWN);
 		labelMotdePass.setFont(Font.font("Calibri",20));
 		
-		PasswordField MotdePass = new PasswordField();
+		PfMotdePass = new PasswordField();
 		gridUserPass.add(labelNom, 0, 0);
-		gridUserPass.add(txtlabelNom, 1, 0);
+		gridUserPass.add(tfNom, 1, 0);
 		gridUserPass.add(labelMotdePass, 0, 1);
-		gridUserPass.add(MotdePass, 1,1);
+		gridUserPass.add(PfMotdePass, 1,1);
 		
 		gridUserPass.setHgap(20);
 		gridUserPass.setVgap(10);
