@@ -4,6 +4,7 @@ package fr.isika.cda22.projet1.vues;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 import fr.isika.cda22.projet1.composantsJFX.HbLogo;
 import fr.isika.cda22.projet1.composantsJFX.ModelTextField;
@@ -198,6 +199,16 @@ public class VueEnregistrement extends Scene{
 			tf.clear();
 		});
 		return tf;
+	}
+	
+	public ArrayList<String> getTextFields(){
+		ArrayList<String> attributs = new ArrayList<>();
+		attributs.add(tfNom.getText());
+		attributs.add(tfPrenom.getText());
+		attributs.add(tfLocalisation.getText());
+		attributs.add(tfFormation.getText());
+		attributs.add(tfAnneePromo.getText());
+		return attributs;
 	}
 	
 }

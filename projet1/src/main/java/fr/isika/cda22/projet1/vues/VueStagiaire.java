@@ -3,6 +3,7 @@ package fr.isika.cda22.projet1.vues;
 import java.util.ArrayList;
 
 import fr.isika.cda22.projet1.composantsJFX.*;
+import fr.isika.cda22.projet1.entites.Stagiaire;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -284,6 +285,14 @@ public class VueStagiaire extends Scene {
 		// Création boutton supprimer
 		btnSupprimerStagiaire = new ModelButton("Supprimer un\n    Stagiaire");
 		btnSupprimerStagiaire.setAlignment(Pos.BASELINE_CENTER);
+		
+		btnSupprimerStagiaire.setOnAction(event ->{
+			Stagiaire ancienStagiaire = vbTableau.getTable().getSelectionModel().getSelectedItem();
+			vbTableau.getListeStagiaire().remove(ancienStagiaire);
+//			vbTableau.setListeStagiaire(vbTableau.getListeStagiaire());
+			vbTableau.getTable().setItems(FXCollections.observableArrayList(vbTableau.getListeStagiaire()));
+//			System.out.println(ancienStagiaire);
+		});
 
 		// Hbox pour gerer les trois boutons
 		HBox hbAjouterModifierSupprimer = new HBox(btnAjouterStagiaire, btnModifierStagiaire, btnSupprimerStagiaire);

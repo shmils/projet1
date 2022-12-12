@@ -1,9 +1,12 @@
 package fr.isika.cda22.projet1.vues;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import fr.isika.cda22.projet1.composantsJFX.HbLogo;
 import fr.isika.cda22.projet1.entites.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,10 +19,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class VueLogin extends Scene{
 
@@ -28,6 +33,7 @@ public class VueLogin extends Scene{
 	private TextField tfNom;
 	private CheckBox cbAdmin;
 	private PasswordField PfMotdePass;
+	private TextField TfMotdePass;
 	private Label msgErreur;
 	
 	public ArrayList<Formatteur> getUtilisateur() {
@@ -78,8 +84,16 @@ public class VueLogin extends Scene{
 		this.msgErreur = msgErreur;
 	}
 
+	public TextField getTfMotdePass() {
+		return TfMotdePass;
+	}
+
+	public void setTfMotdePass(TextField tfMotdePass) {
+		TfMotdePass = tfMotdePass;
+	}
+
 	public VueLogin() {
-		super(new VBox(),300,600);
+		super(new VBox(),400,600);
 		VBox root = (VBox) this.getRoot();
 		
 		//On stylise notre panneau:
@@ -152,10 +166,52 @@ public class VueLogin extends Scene{
 		labelMotdePass.setFont(Font.font("Calibri",20));
 		
 		PfMotdePass = new PasswordField();
+		PfMotdePass.setVisible(true);
+		
+		TfMotdePass = new TextField();
+		TfMotdePass.setVisible(false);
+		StackPane spMotdePasse = new StackPane(PfMotdePass, TfMotdePass);
+		
+		InputStream input1 = getClass().getResourceAsStream("/fr/isika/cda22/projet1/images/hidden.png");
+		Image imgHidden = new Image(input1);
+        ImageView viewHidden = new ImageView(imgHidden);
+        viewHidden.setFitHeight(15);
+        viewHidden.setPreserveRatio(true);
+        
+        InputStream input2 = getClass().getResourceAsStream("/fr/isika/cda22/projet1/images/eye.png");
+        Image imgVisibile = new Image(input2);
+        ImageView viewVisibile = new ImageView(imgVisibile);
+        viewVisibile.setFitHeight(15);
+        viewVisibile.setPreserveRatio(true);
+        
+        Button btnChangerVisibilite = new Button();
+//        btnChangerVisibilite.setMinSize(5,5);
+        btnChangerVisibilite.setGraphic(viewHidden);
+        btnChangerVisibilite.setAlignment(Pos.CENTER_RIGHT);
+        btnChangerVisibilite.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if(PfMotdePass.isVisible()) {
+					btnChangerVisibilite.setGraphic(viewVisibile);
+					PfMotdePass.setVisible(false);
+					TfMotdePass.setVisible(true);
+					TfMotdePass.setText(PfMotdePass.getText());
+				} else {
+					btnChangerVisibilite.setGraphic(viewHidden);
+					TfMotdePass.setVisible(false);
+					PfMotdePass.setVisible(true);
+					PfMotdePass.setText(TfMotdePass.getText());
+				}
+			}
+        });
+        
+        HBox hbMotdePass = new HBox(2, spMotdePasse, btnChangerVisibilite);
+        
 		gridUserPass.add(labelNom, 0, 0);
 		gridUserPass.add(tfNom, 1, 0);
 		gridUserPass.add(labelMotdePass, 0, 1);
-		gridUserPass.add(PfMotdePass, 1,1);
+//		gridUserPass.add(PfMotdePass, 1,1);
+		gridUserPass.add(hbMotdePass, 1,1);
 		
 		gridUserPass.setHgap(20);
 		gridUserPass.setVgap(10);
@@ -224,6 +280,14 @@ public class VueLogin extends Scene{
 			
 		}
 		return false;
+	}
+	
+	public String getMotdePasse() {
+		if(PfMotdePass.isVisible()) {
+			return PfMotdePass.getText();
+		} else {
+			return TfMotdePass.getText();
+		}
 	}
 
 }

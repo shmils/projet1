@@ -1,5 +1,9 @@
 package fr.isika.cda22.projet1;
 
+import java.util.ArrayList;
+
+import fr.isika.cda22.projet1.composantsJFX.vbTableau;
+import fr.isika.cda22.projet1.entites.Stagiaire;
 import fr.isika.cda22.projet1.vues.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -23,12 +27,16 @@ public class App extends Application {
     public void start(Stage stage) {
     	vueListeStagiaire = new VueStagiaire();
     	vueEnregistrement = new VueEnregistrement();
-    	vueModification = new VueModification("milany", "hossein", "45", "cda al 22", "2022");
+//    	vueModification = new VueModification("milany", "hossein", "45", "cda al 22", "2022");
+    	vueModification = new VueModification();
     	vueLogin = new VueLogin();
     	
     	vueLogin.getBtnLogin().setOnAction(event ->{
+    		boolean isAdmin = vueLogin.getCbAdmin().isSelected();
     		if(vueLogin.authentifier(vueLogin.getTfNom().getText(), 
-    				vueLogin.getPfMotdePass().getText(),vueLogin.getCbAdmin().isSelected())) {
+    				vueLogin.getMotdePasse(), isAdmin)) {
+    			vueListeStagiaire.getBtnModifierStagiaire().setDisable(!isAdmin);
+    			vueListeStagiaire.getBtnSupprimerStagiaire().setDisable(!isAdmin);
     			stage.setScene(vueListeStagiaire);
         		stage.setTitle("My Intern - Liste");
     		} else {
@@ -37,6 +45,10 @@ public class App extends Application {
 		});
     	
     	vueListeStagiaire.getBtnModifierStagiaire().setOnAction(event ->{
+    		//on devra creer le stagiare à modifier
+//    		Stagiaire ancienStagiaire = vueListeStagiaire.getVbTableau().getTable().getSelectionModel().getSelectedItem();
+    		vueModification.setAncienStagiaire(vueListeStagiaire.getVbTableau().getTable().getSelectionModel().getSelectedItem());
+    		vueModification.remplirFields();
     		stage.setScene(vueModification);
     		stage.setTitle("My Intern - Modifier");
     	});
@@ -44,6 +56,7 @@ public class App extends Application {
     	vueListeStagiaire.getSeDeconnecter().setOnAction(event ->{
     		vueLogin.getTfNom().clear();
     		vueLogin.getPfMotdePass().clear();
+    		vueLogin.getTfMotdePass().clear();
     		vueLogin.getMsgErreur().setVisible(false);
     		stage.setScene(vueLogin);
     		stage.setTitle("My Intern - Se Connecter");
@@ -55,12 +68,30 @@ public class App extends Application {
     	});
     	
     	vueEnregistrement.getBtnConfirmation().setOnAction(event ->{
+    		//on devra recuperer les textFields
+    		ArrayList<String> attributs = vueEnregistrement.getTextFields();
+    		//creer un Stagiaire
+    		Stagiaire cleAjouter = new Stagiaire(attributs.get(0),attributs.get(1),attributs.get(2),attributs.get(3),attributs.get(4));
+    		//ajouter le Stagiaire sur le tableau
+//    		vueListeStagiaire.getVbTableau().ajouterStagiaire(cleAjouter);
+    		vueListeStagiaire.getVbTableau().getListeStagiaire().add(cleAjouter);
+    		vueListeStagiaire.getVbTableau().setListeStagiaire(vueListeStagiaire.getVbTableau().getListeStagiaire());
     		retourEnListe(stage);
     	});
     	vueEnregistrement.getButtonRetour().setOnAction(event ->{
     		retourEnListe(stage);
     	});
     	vueModification.getBtnConfirmation().setOnAction(event ->{
+    		//on devra recuperer les textFields
+    		ArrayList<String> attributs = vueModification.getTextFields();
+    		//creer un Stagiaire
+    		Stagiaire cleModifier = new Stagiaire(attributs.get(0),attributs.get(1),attributs.get(2),attributs.get(3),attributs.get(4));
+    		//ajouter le Stagiaire sur le tableau
+//    		vueListeStagiaire.getVbTableau().ajouterStagiaire(cleModifier);
+    		vueListeStagiaire.getVbTableau().getListeStagiaire().remove(vueModification.getAncienStagiaire());
+    		vueListeStagiaire.getVbTableau().getListeStagiaire().add(cleModifier);
+    		vueListeStagiaire.getVbTableau().setListeStagiaire(vueListeStagiaire.getVbTableau().getListeStagiaire());
+//    		monAbre.modifierStagiaire(vueModification.getAncienStagiaire(),cleModifier);
     		retourEnListe(stage);
     	});
     	vueModification.getButtonRetour().setOnAction(event ->{
@@ -70,7 +101,7 @@ public class App extends Application {
     	
 		stage.setResizable(false);
 		stage.setTitle("My Inter - Se Connecter");
-		stage.setScene(vueLogin);
+		stage.setScene(vueListeStagiaire);
 		stage.show();
     }
 

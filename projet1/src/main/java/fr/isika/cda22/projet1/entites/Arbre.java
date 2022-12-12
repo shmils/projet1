@@ -59,7 +59,6 @@ public class Arbre {
 		}
 	}
 	
-
 	public ArrayList<Stagiaire> toArray() {
 		if(this.isEmpty()) {
 			return null;
