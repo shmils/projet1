@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
+import fr.isika.cda22.projet1.composantsJFX.HbLogo;
+import fr.isika.cda22.projet1.composantsJFX.ModelTextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -50,21 +52,20 @@ public class VueEnregistrement extends Scene{
 		Button buttonRetour = new Button("Retour"); 
 		buttonRetour.setAlignment(Pos.BASELINE_LEFT);
 
-
-		Label myIntern = new Label("My intern");
-		myIntern.setTextFill(Color.SADDLEBROWN);
-		myIntern.setFont(Font.font("Brush Script MT", 25));
-		myIntern.setAlignment(Pos.TOP_RIGHT);
-
-		Circle cercle = new Circle(5);
-		cercle.setFill(Color.GOLD);
-		cercle.setStroke(Color.SADDLEBROWN);
-
-		HBox hboxCercleInterne = new HBox(cercle,myIntern);
-		hboxCercleInterne.setAlignment(Pos.BASELINE_RIGHT);
-		hboxCercleInterne.setSpacing(3);
-
-
+//		Label myIntern = new Label("My intern");
+//		myIntern.setTextFill(Color.SADDLEBROWN);
+//		myIntern.setFont(Font.font("Brush Script MT", 25));
+//		myIntern.setAlignment(Pos.TOP_RIGHT);
+//
+//		Circle cercle = new Circle(5);
+//		cercle.setFill(Color.GOLD);
+//		cercle.setStroke(Color.SADDLEBROWN);
+//
+//		HBox hboxCercleInterne = new HBox(cercle,myIntern);
+//		hboxCercleInterne.setAlignment(Pos.BASELINE_RIGHT);
+//		hboxCercleInterne.setSpacing(3);
+		HbLogo hboxCercleInterne = new HbLogo();
+		
 		HBox hboxRetourListeStagiaire = new HBox (buttonRetour,hboxCercleInterne);
 		hboxRetourListeStagiaire.setSpacing(300);
 		hboxRetourListeStagiaire.setPadding(new Insets(10));
@@ -181,11 +182,9 @@ public class VueEnregistrement extends Scene{
 		this.btnConfirmation = btnConfirmation;
 	}
 
-	private TextField initTf(String contenue) {
-		TextField tf = new TextField();
+	private ModelTextField initTf(String contenue) {
+		ModelTextField tf = new ModelTextField(contenue);
 		tf.setMaxSize(300,20);
-		tf.setFont(Font.font("Calibri", 20));
-		tf.setText(contenue);
 		tf.setOnMouseClicked(event ->{
 			tf.clear();
 		});

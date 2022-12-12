@@ -56,22 +56,23 @@ public class VueStagiaire extends Scene {
 		// -----------------Début de la Hbox Haut de la page -------------------
 
 		// Création du petit cercle à côté de MyIntern
-		Circle cercle = new Circle(5);
-		cercle.setFill(Color.GOLD);
-		cercle.setStroke(Color.SADDLEBROWN);
-
-		// Création du label MyIntern
-		Label myIntern = new Label("My Intern");
-		myIntern.setTextFill(Color.SADDLEBROWN);
-		myIntern.setFont(Font.font("Brush Script MT", 25));
-		myIntern.setAlignment(Pos.TOP_LEFT);
-
-		// Création d'une Hbox pour pouvoir gérer le cercle et myIntern
-		HBox cercleMyIntern = new HBox();
-		// cercleMyIntern.setPadding(new Insets(10));
-		cercleMyIntern.getChildren().addAll(cercle, myIntern);
-		cercleMyIntern.setAlignment(Pos.TOP_LEFT);
-
+//		Circle cercle = new Circle(5);
+//		cercle.setFill(Color.GOLD);
+//		cercle.setStroke(Color.SADDLEBROWN);
+//
+//		// Création du label MyIntern
+//		Label myIntern = new Label("My Intern");
+//		myIntern.setTextFill(Color.SADDLEBROWN);
+//		myIntern.setFont(Font.font("Brush Script MT", 25));
+//		myIntern.setAlignment(Pos.TOP_LEFT);
+//
+//		// Création d'une Hbox pour pouvoir gérer le cercle et myIntern
+//		HBox cercleMyIntern = new HBox();
+//		// cercleMyIntern.setPadding(new Insets(10));
+//		cercleMyIntern.getChildren().addAll(cercle, myIntern);
+//		cercleMyIntern.setAlignment(Pos.TOP_LEFT);
+		HbLogo cercleMyIntern = new HbLogo();
+		
 		// Création bouton seDeconnecter
 		ModelButton seDeconnecter = new ModelButton("Se Déconnecter");
 		seDeconnecter.setAlignment(Pos.TOP_CENTER);
@@ -156,9 +157,7 @@ public class VueStagiaire extends Scene {
 		RechercheFiltre.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {				
-				Criteres.getChildren();		
-				for 
-				(Node hb : Criteres.getChildren()){
+				for(Node hb : Criteres.getChildren()){
 				ChoiceBox cb = (ChoiceBox) ((HBox)hb).getChildren().get(0);
 				System.out.println(cb.getValue());
 				TextField tf = (TextField) ((HBox)hb).getChildren().get(1);
@@ -222,15 +221,16 @@ public class VueStagiaire extends Scene {
 		// -----------------Début de la Hbox Ajouter, Modifier,Supprimer-------------------
 
 		// Création bouton ajouter
-		ModelButtonStagiaire ajouter = new ModelButtonStagiaire("Ajouter un\n  Stagiaire");
+		ModelButton ajouter = new ModelButton("Ajouter un\n  Stagiaire");
+		ajouter.setPrefHeight(50);
 		ajouter.setAlignment(Pos.BASELINE_CENTER);
 
 		// Création bouton modifier
-		ModelButtonStagiaire modifier = new ModelButtonStagiaire("Modifier un\n   Stagiaire");
+		ModelButton modifier = new ModelButton("Modifier un\n   Stagiaire");
 		modifier.setAlignment(Pos.BASELINE_CENTER);
 
 		// Création boutton supprimer
-		ModelButtonStagiaire supprimer = new ModelButtonStagiaire("Supprimer un\n    Stagiaire");
+		ModelButton supprimer = new ModelButton("Supprimer un\n    Stagiaire");
 		supprimer.setAlignment(Pos.BASELINE_CENTER);
 
 		// Hbox pour gerer les trois boutons
@@ -266,4 +266,4 @@ public class VueStagiaire extends Scene {
 
 	}
 	
-	}
+}

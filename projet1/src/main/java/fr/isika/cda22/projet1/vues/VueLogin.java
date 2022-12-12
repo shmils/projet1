@@ -2,6 +2,7 @@ package fr.isika.cda22.projet1.vues;
 
 import java.util.ArrayList;
 
+import fr.isika.cda22.projet1.composantsJFX.HbLogo;
 import fr.isika.cda22.projet1.entites.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,25 +42,27 @@ public class VueLogin extends Scene{
 		//On instancie une HBox:
 		
 		
-		HBox hboxMyIntern = new HBox();
-		
-		// on commence par instancie une label :
-		
-		Label myIntern = new Label ("My intern ");
-		myIntern.setTextFill(Color.SADDLEBROWN);
-		myIntern.setFont(Font.font("Brush Script MT", 25));
-		//myIntern.relocate(20, 100);
-		myIntern.setAlignment(Pos.TOP_CENTER);
-		
-		//On instancie des objets à afficher sur le panneau, on les stylise et on les positionne:
-		Circle cercle = new Circle(5);
-		cercle.setFill(Color.GOLD);
-		cercle.setStroke(Color.SADDLEBROWN);
-		//cercle.relocate(288,30);
-		
-		hboxMyIntern.getChildren().addAll(cercle,myIntern);
+//		HBox hboxMyIntern = new HBox();
+//		
+//		// on commence par instancie une label :
+//		
+//		Label myIntern = new Label ("My intern ");
+//		myIntern.setTextFill(Color.SADDLEBROWN);
+//		myIntern.setFont(Font.font("Brush Script MT", 25));
+//		//myIntern.relocate(20, 100);
+//		myIntern.setAlignment(Pos.TOP_CENTER);
+//		
+//		//On instancie des objets à afficher sur le panneau, on les stylise et on les positionne:
+//		Circle cercle = new Circle(5);
+//		cercle.setFill(Color.GOLD);
+//		cercle.setStroke(Color.SADDLEBROWN);
+//		//cercle.relocate(288,30);
+//		
+//		hboxMyIntern.getChildren().addAll(cercle,myIntern);
+//		hboxMyIntern.setAlignment(Pos.CENTER);
+//		hboxMyIntern.setSpacing(5);
+		HbLogo hboxMyIntern = new HbLogo();
 		hboxMyIntern.setAlignment(Pos.CENTER);
-		hboxMyIntern.setSpacing(5);
 		
 		//On instancie une VBox:
 		

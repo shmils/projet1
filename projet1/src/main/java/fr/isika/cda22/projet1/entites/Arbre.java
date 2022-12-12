@@ -3,6 +3,7 @@ package fr.isika.cda22.projet1.entites;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 public class Arbre {
 	
@@ -58,13 +59,16 @@ public class Arbre {
 		}
 	}
 	
+
+	public ArrayList<Stagiaire> toArray() {
+		if(this.isEmpty()) {
+			return null;
+		} else {
+			ArrayList<Stagiaire> stgArray = new ArrayList<>();
+			Noeud.readNoeudBin(raf, this.indiceRacine).toArray(stgArray, raf);
+			return stgArray;
+		}
+	}
 	
-//	public Noeud rechercherStagiaire(Stagiaire stagiaire) {
-//		if(this.isEmpty()) {
-//			return null;
-//		} else {
-//			return this.racine.rechercherStagiaire(stagiaire);
-//		}
-//	}
 	
 }

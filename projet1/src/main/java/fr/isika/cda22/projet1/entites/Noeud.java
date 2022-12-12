@@ -2,6 +2,7 @@ package fr.isika.cda22.projet1.entites;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 public class Noeud {
 	
@@ -165,6 +166,21 @@ public class Noeud {
 		}
 	}
 
+	public void toArray(ArrayList<Stagiaire> stgArray, RandomAccessFile raf) {
+		if(this.indiceFG != -1) {
+			Noeud fg = Noeud.readNoeudBin(raf, indiceFG);
+			fg.toArray(stgArray, raf);
+		}
+		stgArray.add(cle);
+		if(this.indiceDB != -1) {
+			Noeud db = Noeud.readNoeudBin(raf, indiceDB);
+			db.toArray(stgArray, raf);
+		}
+		if(this.indiceFD != -1) {
+			Noeud fd = Noeud.readNoeudBin(raf, indiceFD);
+			fd.toArray(stgArray, raf);
+		}
+	}
 	
 //
 //	public Noeud rechercherStagiaire(Stagiaire stagiaire) {

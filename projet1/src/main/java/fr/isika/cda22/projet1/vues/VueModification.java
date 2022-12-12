@@ -9,13 +9,13 @@ public class VueModification extends VueEnregistrement{
 	public VueModification(String tfNom,String tfPrenom,String tfLocalisation,String tfFormation,String tfAnneePromo) {
 		
 		super();
-		getTitrePage().setText("Modifier le stagiaire");
+		this.getTitrePage().setText("Modifier le stagiaire");
 		this.getTfNom().setText(tfNom);
 		this.getTfPrenom().setText(tfPrenom);
 		this.getTfLocalisation().setText(tfLocalisation);
 		this.getTfFormation().setText(tfFormation);
 		this.getTfAnneePromo().setText(tfAnneePromo);
-		getBtnConfirmation().setText("Modification");
+		this.getBtnConfirmation().setText("Modification");
 	}
 	
 }
