@@ -35,7 +35,59 @@ public class VueStagiaire extends Scene {
 
 	private vbTableau vbTableau;
 	private ArrayList<String> listCriteres; 
+	private ModelButton btnAjouterStagiaire;
+	private ModelButton btnModifierStagiaire;
+	private ModelButton btnSupprimerStagiaire;
+	private ModelButton seDeconnecter;
 	
+	public vbTableau getVbTableau() {
+		return vbTableau;
+	}
+
+	public void setVbTableau(vbTableau vbTableau) {
+		this.vbTableau = vbTableau;
+	}
+
+	public ArrayList<String> getListCriteres() {
+		return listCriteres;
+	}
+
+	public void setListCriteres(ArrayList<String> listCriteres) {
+		this.listCriteres = listCriteres;
+	}
+
+	public ModelButton getBtnAjouterStagiaire() {
+		return btnAjouterStagiaire;
+	}
+
+	public void setBtnAjouterStagiaire(ModelButton btnAjouterStagiaire) {
+		this.btnAjouterStagiaire = btnAjouterStagiaire;
+	}
+
+	public ModelButton getBtnModifierStagiaire() {
+		return btnModifierStagiaire;
+	}
+
+	public void setBtnModifierStagiaire(ModelButton btnModifierStagiaire) {
+		this.btnModifierStagiaire = btnModifierStagiaire;
+	}
+
+	public ModelButton getBtnSupprimerStagiaire() {
+		return btnSupprimerStagiaire;
+	}
+
+	public ModelButton getSeDeconnecter() {
+		return seDeconnecter;
+	}
+
+	public void setSeDeconnecter(ModelButton seDeconnecter) {
+		this.seDeconnecter = seDeconnecter;
+	}
+
+	public void setBtnSupprimerStagiaire(ModelButton btnSupprimerStagiaire) {
+		this.btnSupprimerStagiaire = btnSupprimerStagiaire;
+	}
+
 	public VueStagiaire() {
 	
 		super(new VBox(), 700, 800);
@@ -74,7 +126,7 @@ public class VueStagiaire extends Scene {
 		HbLogo cercleMyIntern = new HbLogo();
 		
 		// Création bouton seDeconnecter
-		ModelButton seDeconnecter = new ModelButton("Se Déconnecter");
+		seDeconnecter = new ModelButton("Se Déconnecter");
 		seDeconnecter.setAlignment(Pos.TOP_CENTER);
 
 		// Création de HBox pour tous les éléments en Top de la page Liste stagiaire et pouvoir les aligner comme on le souhaite
@@ -221,20 +273,20 @@ public class VueStagiaire extends Scene {
 		// -----------------Début de la Hbox Ajouter, Modifier,Supprimer-------------------
 
 		// Création bouton ajouter
-		ModelButton ajouter = new ModelButton("Ajouter un\n  Stagiaire");
-		ajouter.setPrefHeight(50);
-		ajouter.setAlignment(Pos.BASELINE_CENTER);
+		btnAjouterStagiaire = new ModelButton("Ajouter un\n  Stagiaire");
+		btnAjouterStagiaire.setPrefHeight(50);
+		btnAjouterStagiaire.setAlignment(Pos.BASELINE_CENTER);
 
 		// Création bouton modifier
-		ModelButton modifier = new ModelButton("Modifier un\n   Stagiaire");
-		modifier.setAlignment(Pos.BASELINE_CENTER);
+		btnModifierStagiaire = new ModelButton("Modifier un\n   Stagiaire");
+		btnModifierStagiaire.setAlignment(Pos.BASELINE_CENTER);
 
 		// Création boutton supprimer
-		ModelButton supprimer = new ModelButton("Supprimer un\n    Stagiaire");
-		supprimer.setAlignment(Pos.BASELINE_CENTER);
+		btnSupprimerStagiaire = new ModelButton("Supprimer un\n    Stagiaire");
+		btnSupprimerStagiaire.setAlignment(Pos.BASELINE_CENTER);
 
 		// Hbox pour gerer les trois boutons
-		HBox hbAjouterModifierSupprimer = new HBox(ajouter, modifier, supprimer);
+		HBox hbAjouterModifierSupprimer = new HBox(btnAjouterStagiaire, btnModifierStagiaire, btnSupprimerStagiaire);
 		hbAjouterModifierSupprimer.setAlignment(Pos.BASELINE_CENTER);
 		hbAjouterModifierSupprimer.setSpacing(150);
 		hbAjouterModifierSupprimer.setMinHeight(50);

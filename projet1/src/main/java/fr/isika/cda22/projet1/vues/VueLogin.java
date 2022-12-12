@@ -23,12 +23,52 @@ import javafx.scene.text.Font;
 
 public class VueLogin extends Scene{
 
-	public ArrayList<Formatteur> Utilisateur;
-	public Button btnLogin;
-	public TextField txtlabelNom;
-	public CheckBox cbAdmin;
-	public TextField txtMotdePass;
+	private ArrayList<Formatteur> Utilisateur;
+	private Button btnLogin;
+	private TextField txtlabelNom;
+	private CheckBox cbAdmin;
+	private TextField txtMotdePass;
 	
+	public ArrayList<Formatteur> getUtilisateur() {
+		return Utilisateur;
+	}
+
+	public void setUtilisateur(ArrayList<Formatteur> utilisateur) {
+		Utilisateur = utilisateur;
+	}
+
+	public Button getBtnLogin() {
+		return btnLogin;
+	}
+
+	public void setBtnLogin(Button btnLogin) {
+		this.btnLogin = btnLogin;
+	}
+
+	public TextField getTxtlabelNom() {
+		return txtlabelNom;
+	}
+
+	public void setTxtlabelNom(TextField txtlabelNom) {
+		this.txtlabelNom = txtlabelNom;
+	}
+
+	public CheckBox getCbAdmin() {
+		return cbAdmin;
+	}
+
+	public void setCbAdmin(CheckBox cbAdmin) {
+		this.cbAdmin = cbAdmin;
+	}
+
+	public TextField getTxtMotdePass() {
+		return txtMotdePass;
+	}
+
+	public void setTxtMotdePass(TextField txtMotdePass) {
+		this.txtMotdePass = txtMotdePass;
+	}
+
 	public VueLogin() {
 		super(new VBox(),300,600);
 		VBox root = (VBox) this.getRoot();

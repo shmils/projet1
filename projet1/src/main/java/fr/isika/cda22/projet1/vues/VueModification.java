@@ -4,8 +4,6 @@ public class VueModification extends VueEnregistrement{
 
 	//attributs
 	
-	
-	
 	public VueModification(String tfNom,String tfPrenom,String tfLocalisation,String tfFormation,String tfAnneePromo) {
 		
 		super();

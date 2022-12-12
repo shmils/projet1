@@ -13,31 +13,67 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 	
-	public VueStagiaire vueStagiaire;
+	public VueStagiaire vueListeStagiaire;
 	public VueEnregistrement vueEnregistrement;
 	public VueModification vueModification;
 	public VueLogin vueLogin;
 
     @Override
     public void start(Stage stage) {
-    	vueStagiaire = new VueStagiaire();
+    	vueListeStagiaire = new VueStagiaire();
     	vueEnregistrement = new VueEnregistrement();
     	vueModification = new VueModification("milany", "hossein", "45", "cda al 22", "2022");
     	vueLogin = new VueLogin();
     	
-    	vueLogin.btnLogin.setOnAction(event ->{
-    		vueLogin.authentifier(vueLogin.txtlabelNom.getText(), 
-    				vueLogin.txtMotdePass.getText(),vueLogin.cbAdmin.isSelected());			
+    	vueLogin.getBtnLogin().setOnAction(event ->{
+//    		vueLogin.authentifier(vueLogin.txtlabelNom.getText(), 
+//    				vueLogin.txtMotdePass.getText(),vueLogin.cbAdmin.isSelected());		
+    		stage.setScene(vueListeStagiaire);
+    		stage.setTitle("My Intern - Liste");
 		});
     	
+    	vueListeStagiaire.getBtnModifierStagiaire().setOnAction(event ->{
+    		stage.setScene(vueModification);
+    		stage.setTitle("My Intern - Modifier");
+    	});
+    	
+    	vueListeStagiaire.getSeDeconnecter().setOnAction(event ->{
+    		stage.setScene(vueLogin);
+    		stage.setTitle("My Intern - Se Connecter");
+    	});
+    	
+    	vueListeStagiaire.getBtnAjouterStagiaire().setOnAction(event ->{
+    		stage.setScene(vueEnregistrement);
+    		stage.setTitle("My Intern - Ajouter");
+    	});
+    	
+    	vueEnregistrement.getBtnConfirmation().setOnAction(event ->{
+    		retourEnListe(stage);
+    	});
+    	vueEnregistrement.getButtonRetour().setOnAction(event ->{
+    		retourEnListe(stage);
+    	});
+    	vueModification.getBtnConfirmation().setOnAction(event ->{
+    		retourEnListe(stage);
+    	});
+    	vueModification.getButtonRetour().setOnAction(event ->{
+    		retourEnListe(stage);
+    	});
+	
+    	
 		stage.setResizable(false);
-		stage.setTitle("Liste des stagiaires");
+		stage.setTitle("My Inter - Se Connecter");
 		stage.setScene(vueLogin);
 		stage.show();
     }
 
     public static void main(String[] args) {
         launch();
+    }
+    
+    public void retourEnListe(Stage stage) {
+    	stage.setScene(vueListeStagiaire);
+		stage.setTitle("My Intern - Liste");
     }
 
 }

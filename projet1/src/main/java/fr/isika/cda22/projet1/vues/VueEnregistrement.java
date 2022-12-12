@@ -40,6 +40,7 @@ public class VueEnregistrement extends Scene{
 	private TextField tfFormation;
 	private TextField tfAnneePromo;
 	private Button btnConfirmation;
+	private Button buttonRetour;
 
 
 	public VueEnregistrement() {
@@ -49,7 +50,7 @@ public class VueEnregistrement extends Scene{
 		//sous arbre 1 (bouton retour et my intern)
 
 
-		Button buttonRetour = new Button("Retour"); 
+		buttonRetour = new Button("Retour"); 
 		buttonRetour.setAlignment(Pos.BASELINE_LEFT);
 
 //		Label myIntern = new Label("My intern");
@@ -180,6 +181,14 @@ public class VueEnregistrement extends Scene{
 
 	public void setBtnConfirmation(Button btnConfirmation) {
 		this.btnConfirmation = btnConfirmation;
+	}
+
+	public Button getButtonRetour() {
+		return buttonRetour;
+	}
+
+	public void setButtonRetour(Button buttonRetour) {
+		this.buttonRetour = buttonRetour;
 	}
 
 	private ModelTextField initTf(String contenue) {
