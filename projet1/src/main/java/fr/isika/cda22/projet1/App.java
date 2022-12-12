@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
@@ -30,6 +31,8 @@ public class App extends Application {
     				vueLogin.getPfMotdePass().getText(),vueLogin.getCbAdmin().isSelected())) {
     			stage.setScene(vueListeStagiaire);
         		stage.setTitle("My Intern - Liste");
+    		} else {
+    			vueLogin.getMsgErreur().setVisible(true);
     		}
 		});
     	
@@ -41,6 +44,7 @@ public class App extends Application {
     	vueListeStagiaire.getSeDeconnecter().setOnAction(event ->{
     		vueLogin.getTfNom().clear();
     		vueLogin.getPfMotdePass().clear();
+    		vueLogin.getMsgErreur().setVisible(false);
     		stage.setScene(vueLogin);
     		stage.setTitle("My Intern - Se Connecter");
     	});

@@ -28,6 +28,7 @@ public class VueLogin extends Scene{
 	private TextField tfNom;
 	private CheckBox cbAdmin;
 	private PasswordField PfMotdePass;
+	private Label msgErreur;
 	
 	public ArrayList<Formatteur> getUtilisateur() {
 		return Utilisateur;
@@ -67,6 +68,14 @@ public class VueLogin extends Scene{
 
 	public void setPfMotdePass(PasswordField txtMotdePass) {
 		this.PfMotdePass = txtMotdePass;
+	}
+	
+	public Label getMsgErreur() {
+		return msgErreur;
+	}
+
+	public void setMsgErreur(Label msgErreur) {
+		this.msgErreur = msgErreur;
 	}
 
 	public VueLogin() {
@@ -164,12 +173,20 @@ public class VueLogin extends Scene{
 	
 		gridUserPass.add(hbCheckAdmin, 0, 2, 2, 1);
 		
-		
 		//On instancie le boutton:
 		btnLogin = new Button("LogIn");
 		btnLogin.setTextFill(Color.SADDLEBROWN);
 		btnLogin.setFont(Font.font("Calibri",15));
 		btnLogin.setAlignment(Pos.CENTER);
+		
+		//on instacie msg Erreur
+		msgErreur = new Label();
+		msgErreur.setText("username ou mot de passe sont erronées!\n"
+				+ "Veuillez reessayer");
+		msgErreur.setTextFill(Color.RED);
+		msgErreur.setFont(Font.font("Calibri",15));
+		msgErreur.setAlignment(Pos.CENTER);
+		msgErreur.setVisible(false);
 		
 		//On donne nos éléments graphiques à notre panneau:
 
@@ -177,6 +194,7 @@ public class VueLogin extends Scene{
 		root.getChildren().add(welcomeImg);
 		root.getChildren().add(gridUserPass);
 		root.getChildren().add(btnLogin);
+		root.getChildren().add(msgErreur);
 
 		VBox.setMargin(gridUserPass, new Insets(50,0,20,0));
 		
@@ -195,19 +213,16 @@ public class VueLogin extends Scene{
 			if(isAdmin) {
 				if(user.getNomUtilisateur().equals(nomUtilisateur) &&
 						user.getMotDePasse().equals(motDePasse) && user.isAdmin()) {
-					System.out.println("bienvenue admin");
 					return true;
 				}
 			} else {
 				if(user.getNomUtilisateur().equals(nomUtilisateur) &&
 						user.getMotDePasse().equals(motDePasse)) {
-					System.out.println("bienvenue Formateur");
 					return true;
 				}
 			}
 			
 		}
-		System.out.println("erreur");
 		return false;
 	}
 
