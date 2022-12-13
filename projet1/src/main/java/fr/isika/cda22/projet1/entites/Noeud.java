@@ -182,24 +182,79 @@ public class Noeud {
 		}
 	}
 	
-//
-//	public Noeud rechercherStagiaire(Stagiaire stagiaire) {
-//		if (this.cle.compareTo(stagiaire) == 0) {
-//			return this;
-//		} else if(this.cle.compareTo(stagiaire) < 0) {
-//			if(this.filsDroit == null) {
-//				return null;
-//			} else {
-//				return this.filsDroit.rechercherStagiaire(stagiaire);
-//			}
-//		} else {
-//			if(this.filsGauche == null) {
-//				return null;
-//			} else {
-//				return this.filsGauche.rechercherStagiaire(stagiaire);
-//			}
-//		}
-//	}
+	public void rechercheCritere(RandomAccessFile raf, ArrayList<Stagiaire> stgArray, Stagiaire cleCritere) {
+		if(this.indiceFG != -1) {
+			Noeud fg = Noeud.readNoeudBin(raf, indiceFG);
+			fg.rechercheCritere(raf, stgArray, cleCritere);
+		}
+		if( this.cle.verifierCritere(cleCritere) ) {
+			stgArray.add(cle);
+		}
+		if(this.indiceDB != -1) {
+			Noeud db = Noeud.readNoeudBin(raf, indiceDB);
+			db.rechercheCritere(raf, stgArray, cleCritere);
+		}
+		if(this.indiceFD != -1) {
+			Noeud fd = Noeud.readNoeudBin(raf, indiceFD);
+			fd.rechercheCritere(raf, stgArray, cleCritere);
+		}
+	}
 	
+	public int getIndiceMax(RandomAccessFile raf) {
+		if(this.indiceFD == -1) {
+			try {
+				return (int) raf.getFilePointer()/TAILLE_NOEUD_OCTET-1;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return -1;
+			}
+		} else {
+			Noeud fd = Noeud.readNoeudBin(raf, this.indiceFD);
+			return fd.getIndiceMax(raf);
+		}
+	}
+	
+	public int getIndiceMin(RandomAccessFile raf) {
+		if(this.indiceFG == -1) {
+			try {
+				return (int) raf.getFilePointer()/TAILLE_NOEUD_OCTET-1;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return -1;
+			}
+		} else {
+			Noeud fg = Noeud.readNoeudBin(raf, this.indiceFG);
+			return fg.getIndiceMin(raf);
+		}
+	}
+	
+	public int getIndiceDouble(RandomAccessFile raf) {
+		if(this.indiceDB == -1) {
+			try {
+				return (int) raf.getFilePointer()/TAILLE_NOEUD_OCTET;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return -1;
+			}
+		} else {
+			Noeud db = Noeud.readNoeudBin(raf, indiceDB);
+			return db.getIndiceDouble(raf);
+		}
+	}
+
+	public int rechercheNoeud(RandomAccessFile raf, Stagiaire cleRecherche) throws IOException {
+		if(this.getCle().compareTo(cleRecherche) > 0 && this.getIndiceFD() != -1) {
+			return Noeud.readNoeudBin(raf, this.indiceFD).rechercheNoeud(raf, cleRecherche);
+		} else if(this.getCle().compareTo(cleRecherche) < 0 && this.getIndiceFG() != -1) {
+			return Noeud.readNoeudBin(raf, this.indiceFG).rechercheNoeud(raf, cleRecherche);
+		} else {
+			if(this.getCle().verifierCritere(cleRecherche)) {
+				return (int) raf.getFilePointer()/TAILLE_NOEUD_OCTET-1;
+			} else if (this.getIndiceDB() != -1){
+				return Noeud.readNoeudBin(raf, this.indiceDB).rechercheNoeud(raf, cleRecherche);
+			}
+		}
+		return -1;
+	}	
 	
 }

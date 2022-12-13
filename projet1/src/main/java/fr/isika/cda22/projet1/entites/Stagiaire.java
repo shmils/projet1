@@ -2,6 +2,8 @@ package fr.isika.cda22.projet1.entites;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 public class Stagiaire extends Personne{
 	
@@ -16,11 +18,63 @@ public class Stagiaire extends Personne{
 	
 	//constructeur
 	public Stagiaire(String nom, String prenom, String localisation, String nomFormation, String anneePromo) {
-		super(nom, prenom);
+		super(nom.toUpperCase(), prenom);
 		this.localisation = localisation;
-		this.nomFormation = nomFormation;
-		this.anneePromo = anneePromo;
+		this.nomFormation = nomFormation.toUpperCase();
+		if(isNumeric(anneePromo)) {
+			this.anneePromo = anneePromo;
+		} else {
+			this.anneePromo = "0";
+		}
 	}
+	
+	public Stagiaire(Map<String, String> map) {
+		this(map.get("Nom"), map.get("Prenom"), map.get("Localisation"), 
+				map.get("Nom de la Formation"), map.get("Annee Promo"));
+	}
+	
+	private String capitalize(String original) {
+		if(original.contains(" ")) {
+			String[] s = original.split(" ");
+			if(s.length == 1) {
+				return capitalizeWord(original);
+			} else {
+				String capitalized = "";
+				for(String sub: s) {
+					capitalized += capitalizeWord(sub) + " ";
+				}
+				return capitalized.substring(0,capitalized.length()-1);
+			}
+		} else if(original.contains("-")) {
+			String[] s = original.split("-");
+			if(s.length == 1) {
+				return capitalizeWord(original);
+			} else {
+				String capitalized = "";
+				for(String sub: s) {
+					capitalized += capitalizeWord(sub) + "-";
+				}
+				return capitalized.substring(0,capitalized.length()-1);
+			}
+		}
+		return capitalizeWord(original);
+	}
+	
+	private String capitalizeWord(String word) {
+		if(word.length() > 1) {
+			return word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();	
+		}
+		return word;
+	}
+	
+	public boolean isNumeric(String strNum) {
+    	Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?"); 
+    	if(strNum == null) {
+    		return false;
+    	} else {
+    		return pattern.matcher(strNum).matches();
+    	}
+    }
 	
 	//getters & setters
 	
@@ -122,5 +176,17 @@ public class Stagiaire extends Personne{
 		return null;
 	}
 
+	public boolean verifierCritere(Stagiaire cleCritere) {
+		if( (cleCritere.getNom() == null || this.getNom().equals(cleCritere.getNom())) &&
+				(cleCritere.getPrenom() == null || this.getPrenom().equals(cleCritere.getPrenom()))	&&
+				(cleCritere.localisation == null || this.localisation.equals(cleCritere.localisation)) &&
+				(cleCritere.nomFormation == null || this.nomFormation.equals(cleCritere.nomFormation)) &&
+				(cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo))) {
+			return true;
+		}
+		return false;
+	}
+
+		
 	
 }

@@ -13,6 +13,7 @@ public class ModelButton extends Button {
 		this.setPrefSize(120, 10);
 		this.setTextFill(Color.SADDLEBROWN);
 		this.setFont(Font.font("Calibri Script MT", 14));
+		this.setAlignment(Pos.CENTER);
 
 
 	

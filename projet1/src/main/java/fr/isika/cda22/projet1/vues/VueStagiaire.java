@@ -1,11 +1,17 @@
 package fr.isika.cda22.projet1.vues;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import fr.isika.cda22.projet1.composantsJFX.*;
 import fr.isika.cda22.projet1.entites.Stagiaire;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,12 +40,16 @@ import javafx.stage.Stage;
 
 public class VueStagiaire extends Scene {
 
+	private static final String[] LIST_CRITERES = {"Nom", "Prenom", "Localisation", 
+			"Nom de la Formation", "Annee Promo" };
+	
 	private vbTableau vbTableau;
 	private ArrayList<String> listCriteres; 
 	private ModelButton btnAjouterStagiaire;
 	private ModelButton btnModifierStagiaire;
 	private ModelButton btnSupprimerStagiaire;
 	private ModelButton seDeconnecter;
+	private VBox Criteres;
 	
 	public vbTableau getVbTableau() {
 		return vbTableau;
@@ -95,35 +105,12 @@ public class VueStagiaire extends Scene {
 
 		VBox fenetre = (VBox) this.getRoot();
 		
-		//instacie listeCriteres
-		listCriteres = new ArrayList<>();
-		listCriteres.add("Nom");
-		listCriteres.add("Prenom");
-		listCriteres.add("Localisation");
-		listCriteres.add("Nom de la Promo");
-		listCriteres.add("Annee de la Promo");
-		
 		// Fond en couleur de l'arrière plan
 		fenetre.setStyle("-fx-background-color:beige");
 
 		// -----------------Début de la Hbox Haut de la page -------------------
 
-		// Création du petit cercle à côté de MyIntern
-//		Circle cercle = new Circle(5);
-//		cercle.setFill(Color.GOLD);
-//		cercle.setStroke(Color.SADDLEBROWN);
-//
-//		// Création du label MyIntern
-//		Label myIntern = new Label("My Intern");
-//		myIntern.setTextFill(Color.SADDLEBROWN);
-//		myIntern.setFont(Font.font("Brush Script MT", 25));
-//		myIntern.setAlignment(Pos.TOP_LEFT);
-//
-//		// Création d'une Hbox pour pouvoir gérer le cercle et myIntern
-//		HBox cercleMyIntern = new HBox();
-//		// cercleMyIntern.setPadding(new Insets(10));
-//		cercleMyIntern.getChildren().addAll(cercle, myIntern);
-//		cercleMyIntern.setAlignment(Pos.TOP_LEFT);
+		// Création du logo
 		HbLogo cercleMyIntern = new HbLogo();
 		
 		// Création bouton seDeconnecter
@@ -151,7 +138,7 @@ public class VueStagiaire extends Scene {
 		listeStagiaires.setAlignment(Pos.TOP_CENTER);
 
 		// Vbox recherche et filtre 
-		VBox Criteres = new VBox();
+		Criteres = new VBox(2);
 
 		Criteres.getChildren().add(creerHbCritere(0));
 
@@ -165,7 +152,7 @@ public class VueStagiaire extends Scene {
 		ModelButton RechercheFiltre = new ModelButton("Rechercher");
 		RechercheFiltre.setAlignment(Pos.BOTTOM_CENTER);
 		//RechercheFiltre.setTextFill(Color.SADDLEBROWN);
-		VBox Boutons = new VBox(5,RechercheFiltre ,Ajouter, Supprimer );
+		VBox Boutons = new VBox(2,RechercheFiltre ,Ajouter, Supprimer );
 
 		// méthode des bouton ajouter et supprimer
 		Ajouter.setOnAction(new EventHandler<ActionEvent>() {
@@ -209,13 +196,15 @@ public class VueStagiaire extends Scene {
 		
 		RechercheFiltre.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event) {				
+			public void handle(ActionEvent event) {	
+				Map<String,String> monMap = new HashMap<>();
 				for(Node hb : Criteres.getChildren()){
 				ChoiceBox cb = (ChoiceBox) ((HBox)hb).getChildren().get(0);
-				System.out.println(cb.getValue());
 				TextField tf = (TextField) ((HBox)hb).getChildren().get(1);
-				System.out.println(tf.getText());
+				monMap.put(cb.getValue().toString(), tf.getText());
 				}				
+				Stagiaire stgRecherche = new Stagiaire(monMap);
+				System.out.println(stgRecherche);
 			}	
 		});
 		
@@ -225,15 +214,16 @@ public class VueStagiaire extends Scene {
 		// Création hbox pour gérer les espacements entre la Hbox de recherche et la
 		// choice box
 
-		HBox rechercheCritere = new HBox();
-		rechercheCritere.setPadding(new Insets(10));
-		rechercheCritere.getChildren().addAll(CritereRechercheMulti);
-		rechercheCritere.setAlignment(Pos.TOP_CENTER);
-		rechercheCritere.setSpacing(150);
+//		HBox rechercheCritere = new HBox();
+//		rechercheCritere.setPadding(new Insets(10));
+//		rechercheCritere.getChildren().addAll(CritereRechercheMulti);
+//		rechercheCritere.setAlignment(Pos.TOP_CENTER);
+//		rechercheCritere.setSpacing(150);
 
 		HBox DispositionRecherche = new HBox();
 		DispositionRecherche.setPadding(new Insets(10));
-		DispositionRecherche.getChildren().addAll(CritereRechercheMulti, rechercheCritere);
+//		DispositionRecherche.getChildren().addAll(CritereRechercheMulti, rechercheCritere);
+		DispositionRecherche.getChildren().addAll(CritereRechercheMulti);
 		DispositionRecherche.setAlignment(Pos.TOP_LEFT);
 		DispositionRecherche.setSpacing(150);
 		DispositionRecherche.setPrefHeight(100);
@@ -244,7 +234,17 @@ public class VueStagiaire extends Scene {
 
 		vbTableau  = new vbTableau();
 		vbTableau.setMaxHeight(550);
-		
+
+//		ObservableList<Stagiaire> selectedItems = vbTableau.getTable().getSelectionModel().getSelectedItems();
+//		selectedItems.addListener(
+//		  new ListChangeListener<Person>() {
+//			 @Override
+//		    public void onChanged(
+//		      Change<? extends Stagiaire> change) {
+//		        System.out.println(
+//		          "Selection changed: " + change.getList());
+//		      }
+//		});
 		VBox vbRechercheTableau = new VBox();
 		//rechercheTableau.setPadding(new Insets(10));
 		vbRechercheTableau.getChildren().addAll(listeStagiaires,DispositionRecherche);
@@ -276,15 +276,17 @@ public class VueStagiaire extends Scene {
 		// Création bouton ajouter
 		btnAjouterStagiaire = new ModelButton("Ajouter un\n  Stagiaire");
 		btnAjouterStagiaire.setPrefHeight(50);
-		btnAjouterStagiaire.setAlignment(Pos.BASELINE_CENTER);
+//		btnAjouterStagiaire.setAlignment(Pos.BASELINE_CENTER);
 
 		// Création bouton modifier
 		btnModifierStagiaire = new ModelButton("Modifier un\n   Stagiaire");
-		btnModifierStagiaire.setAlignment(Pos.BASELINE_CENTER);
+		btnModifierStagiaire.setPrefHeight(50);
+//		btnModifierStagiaire.setAlignment(Pos.BASELINE_CENTER);
 
 		// Création boutton supprimer
 		btnSupprimerStagiaire = new ModelButton("Supprimer un\n    Stagiaire");
-		btnSupprimerStagiaire.setAlignment(Pos.BASELINE_CENTER);
+		btnSupprimerStagiaire.setPrefHeight(50);
+//		btnSupprimerStagiaire.setAlignment(Pos.BASELINE_CENTER);
 		
 		btnSupprimerStagiaire.setOnAction(event ->{
 			Stagiaire ancienStagiaire = vbTableau.getTable().getSelectionModel().getSelectedItem();
@@ -315,7 +317,9 @@ public class VueStagiaire extends Scene {
 	public HBox creerHbCritere(int Integer) {
 		HBox HB = new HBox(5);
 		ChoiceBox critere = new ChoiceBox();
-		critere.setItems(FXCollections.observableArrayList(this.listCriteres));
+		critere.setPrefWidth(150);
+		ObservableList<String> listCriteres = FXCollections.observableArrayList(LIST_CRITERES);
+		critere.setItems(listCriteres);		
 		critere.getSelectionModel().select(Integer);
 		TextField TF = new TextField();
 		HB.getChildren().addAll(critere, TF);
