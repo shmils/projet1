@@ -1,11 +1,20 @@
 package fr.isika.cda22.projet1.vues;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.isika.cda22.projet1.composantsJFX.*;
 import fr.isika.cda22.projet1.entites.Arbre;
@@ -55,7 +64,8 @@ public class VueStagiaire extends Scene {
 	private ModelButton btnSupprimerStagiaire;
 	private ModelButton seDeconnecter;
 	private ModelButton btnImporter;
-	private VBox Criteres;
+	private ModelButton btnTelecharger;
+	private VBox vbCriteres;
 	
 	public Arbre getMonArbre() {
 		return monArbre;
@@ -105,10 +115,14 @@ public class VueStagiaire extends Scene {
 		return seDeconnecter;
 	}
 	
-	public ModelButton geBtntImporter() {
+	public ModelButton getBtnImporter() {
 		return btnImporter;
 	}
-
+	
+	public ModelButton getBtnTelecharger() {
+		return btnTelecharger;
+	}
+	
 	public void setSeDeconnecter(ModelButton seDeconnecter) {
 		this.seDeconnecter = seDeconnecter;
 	}
@@ -156,121 +170,90 @@ public class VueStagiaire extends Scene {
 		listeStagiaires.setAlignment(Pos.TOP_CENTER);
 
 		// Vbox recherche et filtre 
-		Criteres = new VBox(2);
+		vbCriteres = new VBox(2);
 
-		Criteres.getChildren().add(creerHbCritere(0));
+		vbCriteres.getChildren().add(creerHbCritere(0));
 
-		// Hbox avec deux boutons
-		ModelButton Ajouter = new ModelButton("Ajouter");
-		Ajouter.setAlignment(Pos.BOTTOM_CENTER);
-		//Ajouter.setTextFill(Color.SADDLEBROWN);
-		ModelButton Supprimer = new ModelButton("Supprimer");
-		Supprimer.setAlignment(Pos.BOTTOM_CENTER);
-		//Supprimer.setTextFill(Color.SADDLEBROWN);
-		ModelButton RechercheFiltre = new ModelButton("Rechercher");
-		RechercheFiltre.setAlignment(Pos.BOTTOM_CENTER);
-		//RechercheFiltre.setTextFill(Color.SADDLEBROWN);
-		ModelButton btnReset = new ModelButton("Retablir Tableau");
-		btnReset.setAlignment(Pos.BOTTOM_CENTER);
+		// Hbox avec les boutons
+		ModelButton btnAjouterCritere = new ModelButton("Ajouter");
 		
-		VBox Boutons = new VBox(2,RechercheFiltre ,Ajouter, Supprimer, btnReset );
+		ModelButton btnSupprimerCritere = new ModelButton("Supprimer");
+		btnSupprimerCritere.setDisable(true);
+		
+		ModelButton btnRechercher = new ModelButton("Rechercher");
+		ModelButton btnResetTableau = new ModelButton("Retablir Tableau");
+		
+		VBox vbBtnRecherche = new VBox(2,btnRechercher ,btnAjouterCritere, btnSupprimerCritere, btnResetTableau );
 
-		// méthode des bouton ajouter et supprimer
-		Ajouter.setOnAction(new EventHandler<ActionEvent>() {
-
+		// méthode des bouton ajouter, supprimer rechercher, et reset
+		btnAjouterCritere.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				int Integer = Criteres.getChildren().size();
+				int Integer = vbCriteres.getChildren().size();
 
-				Criteres.getChildren().add(creerHbCritere(Integer));
+				vbCriteres.getChildren().add(creerHbCritere(Integer));
 
-				Integer = Criteres.getChildren().size();
+				Integer = vbCriteres.getChildren().size();
 
 				if (Integer == 5) {
-					Ajouter.setDisable(true);
+					btnAjouterCritere.setDisable(true);
 				}
 
 				if (Integer > 1) {
-					Supprimer.setDisable(false);
+					btnSupprimerCritere.setDisable(false);
 				}
 			}
 		});
 		
-		Supprimer.setDisable(true);
-		Supprimer.setOnAction(new EventHandler<ActionEvent>() {
-
+		btnSupprimerCritere.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				int Integer = Criteres.getChildren().size();
-				Criteres.getChildren().remove(Integer - 1);
-				Integer = Criteres.getChildren().size();
+				int Integer = vbCriteres.getChildren().size();
+				vbCriteres.getChildren().remove(Integer - 1);
+				Integer = vbCriteres.getChildren().size();
 				if (Integer == 1) {
-					Supprimer.setDisable(true);
+					btnSupprimerCritere.setDisable(true);
 					;
 				}
 				if (Integer < 5) {
-					Ajouter.setDisable(false);
+					btnAjouterCritere.setDisable(false);
 				}
 			}
 		});
 		
-		RechercheFiltre.setOnAction(new EventHandler<ActionEvent>() {
+		btnRechercher.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {	
 				Map<String,String> monMap = new HashMap<>();
-				for(Node hb : Criteres.getChildren()){
+				for(Node hb : vbCriteres.getChildren()){
 				ChoiceBox cb = (ChoiceBox) ((HBox)hb).getChildren().get(0);
 				TextField tf = (TextField) ((HBox)hb).getChildren().get(1);
 				monMap.put(cb.getValue().toString(), tf.getText());
 				}				
-//				Stagiaire stgRecherche = new Stagiaire(monMap);
 				ArrayList<Stagiaire> stgs = monArbre.rechercheCritere(monMap);
-//				System.out.println(monArbre);
-//				System.out.println(stgs.size());
-//				for(Stagiaire s: stgs) {
-//					System.out.println(s);
-//				}
-//				refreshTable();
 				vbTableau.setListeStagiaire(stgs);
 			}	
 		});
 		
-		btnReset.setOnAction(event ->{
+		btnResetTableau.setOnAction(event ->{
 			refreshTable();
 		});
 		
-		// VBox
-		HBox CritereRechercheMulti = new HBox(5, Criteres, Boutons);
-
-		// Création hbox pour gérer les espacements entre la Hbox de recherche et la
-		// choice box
-
-//		HBox rechercheCritere = new HBox();
-//		rechercheCritere.setPadding(new Insets(10));
-//		rechercheCritere.getChildren().addAll(CritereRechercheMulti);
-//		rechercheCritere.setAlignment(Pos.TOP_CENTER);
-//		rechercheCritere.setSpacing(150);
-
-		HBox DispositionRecherche = new HBox();
-		DispositionRecherche.setPadding(new Insets(10));
-//		DispositionRecherche.getChildren().addAll(CritereRechercheMulti, rechercheCritere);
-		DispositionRecherche.getChildren().addAll(CritereRechercheMulti);
-		DispositionRecherche.setAlignment(Pos.TOP_LEFT);
-		DispositionRecherche.setSpacing(150);
-		DispositionRecherche.setPrefHeight(100);
-		// Création vbox pour gérer les espacements entre la Hbox critère/recherche et
-		// label liste stagiaires et le tableau
+		// HBox contenant les btns et vbCriteres
+		HBox hbDispositionRecherche = new HBox(5, vbCriteres, vbBtnRecherche);
+		hbDispositionRecherche.setPadding(new Insets(10));
 
 		// Insérer le tableau vueTableau 
 		monArbre = new Arbre("src/main/java/fr/isika/cda22/projet1/fichiers/arbre2.bin");
 		
 		vbTableau  = new vbTableau();
 		vbTableau.setMaxHeight(550);
+		vbTableau.setPadding(new Insets(10));
 		refreshTable();
 
 		VBox vbRechercheTableau = new VBox();
-		vbRechercheTableau.getChildren().addAll(listeStagiaires,DispositionRecherche);
+		vbRechercheTableau.getChildren().addAll(listeStagiaires, hbDispositionRecherche);
 		vbRechercheTableau.setAlignment(Pos.TOP_CENTER);
 		vbRechercheTableau.setSpacing(10);
 
@@ -283,9 +266,9 @@ public class VueStagiaire extends Scene {
 		btnImporter.setAlignment(Pos.BOTTOM_CENTER);	
 
 		// bouton telecharger
-		ModelButton btnTelecharger = new ModelButton("Télécharger");
+		btnTelecharger = new ModelButton("Télécharger");
 		btnTelecharger.setAlignment(Pos.BOTTOM_CENTER);
-	
+		
 		// Hbox pour gerer les hbox telecharger et importer
 		HBox hbImprimerImporter = new HBox(btnImporter, btnTelecharger);
 		hbImprimerImporter.setAlignment(Pos.CENTER);
@@ -363,6 +346,41 @@ public class VueStagiaire extends Scene {
 	public void supprimerStagiaire(Stagiaire cleSupprimer) {
 		monArbre.supprimerNoeud(cleSupprimer);
 		refreshTable();
+	}
+	
+	public void importer(File f) {
+		monArbre.importerFile(f);
+		refreshTable();
+	}
+
+	public void telecharger(String string) {
+		try {
+			Document document = new Document();
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(
+					string + "/imprimer.pdf"));
+			document.open();
+			PdfPTable table = new PdfPTable(5);
+			table.addCell("Nom");
+	    	table.addCell("Prenom");
+	    	table.addCell("Localisation");
+	    	table.addCell("Nom de la Formation");
+	    	table.addCell("Annee Promo");
+	    	for(Stagiaire s: vbTableau.getTable().getItems()) {
+	    		table.addCell(s.getNom());
+	    		table.addCell(s.getPrenom());
+	    		table.addCell(s.getLocalisation());
+	    		table.addCell(s.getNomFormation());
+	    		table.addCell(s.getAnneePromo());
+	    	}
+	    	document.add(table);
+	    	document.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

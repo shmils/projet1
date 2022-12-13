@@ -1,7 +1,14 @@
 package fr.isika.cda22.projet1;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.isika.cda22.projet1.composantsJFX.vbTableau;
 import fr.isika.cda22.projet1.entites.Stagiaire;
@@ -10,6 +17,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -30,7 +38,6 @@ public class App extends Application {
     public void start(Stage stage) {
     	vueListeStagiaire = new VueStagiaire();
     	vueEnregistrement = new VueEnregistrement();
-//    	vueModification = new VueModification("milany", "hossein", "45", "cda al 22", "2022");
     	vueModification = new VueModification();
     	vueLogin = new VueLogin();
     	
@@ -49,7 +56,6 @@ public class App extends Application {
     	
     	vueListeStagiaire.getBtnModifierStagiaire().setOnAction(event ->{
     		//on devra creer le stagiare à modifier
-//    		Stagiaire ancienStagiaire = vueListeStagiaire.getVbTableau().getTable().getSelectionModel().getSelectedItem();
     		vueModification.setAncienStagiaire(vueListeStagiaire.getVbTableau().getTable().getSelectionModel().getSelectedItem());
     		vueModification.remplirFields();
     		stage.setScene(vueModification);
@@ -70,16 +76,19 @@ public class App extends Application {
     		stage.setTitle("My Intern - Ajouter");
     	});
     	
-    	vueListeStagiaire.geBtntImporter().setOnAction(event->{
-    			FileChooser fileChooser = new FileChooser();
-    	    	fileChooser.setTitle("Open Resource File");
-    	    	fileChooser.getExtensionFilters().add(new ExtensionFilter(".don files", "*.don"));;  	
-    	    	File f = fileChooser.showOpenDialog(stage);
-//    	    	String nomFichier = fileChooser.g
-//    	    	System.out.println(f.getName());
-//    			File f = new File("src/main/java/fr/isika/cda22/projet1/fichiers/STAGIAIRES_complet.DON");
-    			vueListeStagiaire.getMonArbre().importerFile(f);
-    			vueListeStagiaire.refreshTable();
+    	vueListeStagiaire.getBtnImporter().setOnAction(event->{
+			FileChooser fileChooser = new FileChooser();
+	    	fileChooser.setTitle("Open Resource File");
+	    	fileChooser.getExtensionFilters().add(new ExtensionFilter(".don files", "*.don"));;  	
+	    	File f = fileChooser.showOpenDialog(stage);
+			vueListeStagiaire.importer(f);
+    	});
+    	
+    	vueListeStagiaire.getBtnTelecharger().setOnAction(event ->{
+    		FileChooser fileChooser = new FileChooser();
+    		DirectoryChooser dirChooser = new DirectoryChooser();
+    		dirChooser.setTitle("Open Resource File");
+    		vueListeStagiaire.telecharger(dirChooser.showDialog(stage).getAbsolutePath());
     	});
     	
     	vueEnregistrement.getBtnConfirmation().setOnAction(event ->{
@@ -101,11 +110,6 @@ public class App extends Application {
     		//creer un Stagiaire
     		Stagiaire cleModifier = new Stagiaire(attributs.get(0),attributs.get(1),attributs.get(2),attributs.get(3),attributs.get(4));
     		//ajouter le Stagiaire sur le tableau
-//    		vueListeStagiaire.getVbTableau().ajouterStagiaire(cleModifier);
-//    		vueListeStagiaire.getVbTableau().getListeStagiaire().remove(vueModification.getAncienStagiaire());
-//    		vueListeStagiaire.getVbTableau().getListeStagiaire().add(cleModifier);
-//    		vueListeStagiaire.getVbTableau().setListeStagiaire(vueListeStagiaire.getVbTableau().getListeStagiaire());
-//    		monAbre.modifierStagiaire(vueModification.getAncienStagiaire(),cleModifier);
     		vueListeStagiaire.modifierStagiaire(vueModification.getAncienStagiaire(), cleModifier);
     		retourEnListe(stage);
     	});
