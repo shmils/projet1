@@ -41,10 +41,12 @@ public class App extends Application {
     	vueModification = new VueModification();
     	vueLogin = new VueLogin();
     	
+    	//Handle Action Button vueLogin
     	vueLogin.getBtnLogin().setOnAction(event ->{
     		boolean isAdmin = vueLogin.getCbAdmin().isSelected();
     		if(vueLogin.authentifier(vueLogin.getTfNom().getText(), 
     				vueLogin.getMotdePasse(), isAdmin)) {
+    			vueListeStagiaire.reInit();
     			vueListeStagiaire.setIsAdmin(isAdmin);
     			stage.setScene(vueListeStagiaire);
         		stage.setTitle("My Intern - Liste");
@@ -53,6 +55,7 @@ public class App extends Application {
     		}
 		});
     	
+    	//Handle Action Button vueListeStagiaire
     	vueListeStagiaire.getBtnModifierStagiaire().setOnAction(event ->{
     		//on devra creer le stagiare à modifier
     		vueModification.setAncienStagiaire(vueListeStagiaire.getVbTableau().getTable().getSelectionModel().getSelectedItem());
@@ -62,10 +65,7 @@ public class App extends Application {
     	});
     	
     	vueListeStagiaire.getSeDeconnecter().setOnAction(event ->{
-    		vueLogin.getTfNom().clear();
-    		vueLogin.getPfMotdePass().clear();
-    		vueLogin.getTfMotdePass().clear();
-    		vueLogin.getMsgErreur().setVisible(false);
+    		vueLogin.reInit();
     		stage.setScene(vueLogin);
     		stage.setTitle("My Intern - Se Connecter");
     	});
@@ -95,6 +95,7 @@ public class App extends Application {
     		}
     	});
     	
+    	//Handle Action Button vueEnregistrement
     	vueEnregistrement.getBtnConfirmation().setOnAction(event ->{
     		//on devra recuperer les textFields
     		ArrayList<String> attributs = vueEnregistrement.getTextFields();
@@ -108,6 +109,8 @@ public class App extends Application {
     	vueEnregistrement.getButtonRetour().setOnAction(event ->{
     		retourEnListe(stage);
     	});
+    	
+    	//Handle Action Button vueModification
     	vueModification.getBtnConfirmation().setOnAction(event ->{
     		//on devra recuperer les textFields
     		ArrayList<String> attributs = vueModification.getTextFields();
@@ -117,6 +120,7 @@ public class App extends Application {
     		vueListeStagiaire.modifierStagiaire(vueModification.getAncienStagiaire(), cleModifier);
     		retourEnListe(stage);
     	});
+    	
     	vueModification.getButtonRetour().setOnAction(event ->{
     		retourEnListe(stage);
     	});
@@ -124,7 +128,7 @@ public class App extends Application {
     	
 		stage.setResizable(false);
 		stage.setTitle("My Inter - Se Connecter");
-		stage.setScene(vueListeStagiaire);
+		stage.setScene(vueLogin);
 		stage.show();
     }
 

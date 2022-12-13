@@ -342,7 +342,7 @@ public class VueStagiaire extends Scene {
 		ChoiceBox critere = new ChoiceBox();
 		critere.setPrefWidth(150);
 		ObservableList<String> listCriteres = FXCollections.observableArrayList(LIST_CRITERES);
-		critere.setItems(listCriteres);		
+		critere.setItems(listCriteres);	
 		critere.getSelectionModel().select(Integer);
 		TextField TF = new TextField();
 		HB.getChildren().addAll(critere, TF);
@@ -401,6 +401,14 @@ public class VueStagiaire extends Scene {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void reInit() {
+		refreshTable();
+		vbCriteres.getChildren().clear();
+		vbCriteres.getChildren().add(creerHbCritere(0));
+		btnModifierStagiaire.setDisable(true);
+		btnSupprimerStagiaire.setDisable(true);
 	}
 	
 }

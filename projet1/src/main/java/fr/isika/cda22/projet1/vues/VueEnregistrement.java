@@ -50,22 +50,9 @@ public class VueEnregistrement extends Scene{
 
 		//sous arbre 1 (bouton retour et my intern)
 
-
 		buttonRetour = new Button("Retour"); 
 		buttonRetour.setAlignment(Pos.BASELINE_LEFT);
 
-//		Label myIntern = new Label("My intern");
-//		myIntern.setTextFill(Color.SADDLEBROWN);
-//		myIntern.setFont(Font.font("Brush Script MT", 25));
-//		myIntern.setAlignment(Pos.TOP_RIGHT);
-//
-//		Circle cercle = new Circle(5);
-//		cercle.setFill(Color.GOLD);
-//		cercle.setStroke(Color.SADDLEBROWN);
-//
-//		HBox hboxCercleInterne = new HBox(cercle,myIntern);
-//		hboxCercleInterne.setAlignment(Pos.BASELINE_RIGHT);
-//		hboxCercleInterne.setSpacing(3);
 		HbLogo hboxCercleInterne = new HbLogo();
 		
 		HBox hboxRetourListeStagiaire = new HBox (buttonRetour,hboxCercleInterne);

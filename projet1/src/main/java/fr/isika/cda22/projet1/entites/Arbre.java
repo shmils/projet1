@@ -164,7 +164,7 @@ public class Arbre {
 				Noeud noeudMaxSAG = Noeud.readNoeudBin(raf, indiceMaxSAG); // lire le noeud à l'indice Max
 				noeudActuel.setCle(noeudMaxSAG.getCle()); // remplacer la cle à supprimer par celui de Max
 				int newIndiceFG = supprimerNoeud(noeudActuel.getIndiceFG(), noeudActuel.getCle()); //supprimer la cle Max de la sous arbre gauche et retourner le nouveau indiceFG
-				noeudActuel.setIndiceFD(newIndiceFG); // remplacer l'indiceFG
+				noeudActuel.setIndiceFG(newIndiceFG); // remplacer l'indiceFG
 				noeudActuel.writeNoeudBin(raf, indiceRacine);//ecire le noeud modifié
 			} 
 		}

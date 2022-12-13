@@ -35,6 +35,8 @@ public class VueLogin extends Scene{
 	private PasswordField PfMotdePass;
 	private TextField TfMotdePass;
 	private Label msgErreur;
+	private ImageView viewHidden;
+	Button btnChangerVisibilite;
 	
 	public ArrayList<Formatteur> getUtilisateur() {
 		return Utilisateur;
@@ -163,7 +165,7 @@ public class VueLogin extends Scene{
         viewVisibile.setFitHeight(15);
         viewVisibile.setPreserveRatio(true);
         
-        Button btnChangerVisibilite = new Button();
+        btnChangerVisibilite = new Button();
         btnChangerVisibilite.setGraphic(viewHidden);
         btnChangerVisibilite.setAlignment(Pos.CENTER_RIGHT);
         btnChangerVisibilite.setOnAction(new EventHandler<ActionEvent>() {
@@ -267,4 +269,20 @@ public class VueLogin extends Scene{
 		}
 	}
 
+	public void reInit() {
+		this.TfMotdePass.clear();
+		this.PfMotdePass.clear();
+		this.tfNom.clear();
+		this.msgErreur.setVisible(false);
+		this.TfMotdePass.setVisible(false);
+		this.PfMotdePass.setVisible(true);
+		InputStream input1 = getClass().getResourceAsStream("/fr/isika/cda22/projet1/images/hidden.png");
+		Image imgHidden = new Image(input1);
+        viewHidden = new ImageView(imgHidden);
+        viewHidden.setFitHeight(15);
+        viewHidden.setPreserveRatio(true);
+		this.btnChangerVisibilite.setGraphic(this.viewHidden);
+	}
+
+	
 }

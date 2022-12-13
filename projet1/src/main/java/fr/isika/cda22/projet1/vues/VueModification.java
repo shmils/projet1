@@ -29,11 +29,6 @@ public class VueModification extends VueEnregistrement{
 	public VueModification() {
 		super();
 		this.getTitrePage().setText("Modifier le stagiaire");
-//		this.getTfNom().setText(tfNom);
-//		this.getTfPrenom().setText(tfPrenom);
-//		this.getTfLocalisation().setText(tfLocalisation);
-//		this.getTfFormation().setText(tfFormation);
-//		this.getTfAnneePromo().setText(tfAnneePromo);
 		this.getBtnConfirmation().setText("Modification");
 	}
 	
