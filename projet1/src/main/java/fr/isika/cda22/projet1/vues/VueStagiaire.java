@@ -164,10 +164,10 @@ public class VueStagiaire extends Scene {
 		// Vbox avec Texte liste stagiaire, une hbox dans laquel on a une choiceBox un Textfield et un bouton Recherche, et la tableview
 
 		// Création label Liste stagiare qui doit être situer au milieu
-		Label listeStagiaires = new Label("Liste des stagiaires");
-		listeStagiaires.setTextFill(Color.SADDLEBROWN);
-		listeStagiaires.setFont(Font.font("Brush Script MT", 25));
-		listeStagiaires.setAlignment(Pos.TOP_CENTER);
+		Label lbListeStagiaires = new Label("Liste des stagiaires");
+		lbListeStagiaires.setTextFill(Color.SADDLEBROWN);
+		lbListeStagiaires.setFont(Font.font("Brush Script MT", 25));
+		lbListeStagiaires.setAlignment(Pos.TOP_CENTER);
 
 		// Vbox recherche et filtre 
 		vbCriteres = new VBox(2);
@@ -239,9 +239,13 @@ public class VueStagiaire extends Scene {
 		btnResetTableau.setOnAction(event ->{
 			refreshTable();
 		});
+		VBox vbImporterTelecharger = new VBox(5);
+		vbImporterTelecharger.setPadding(new Insets(10));
+		vbImporterTelecharger.setAlignment(Pos.CENTER);
+		vbImporterTelecharger.setPrefWidth(240);
 		
 		// HBox contenant les btns et vbCriteres
-		HBox hbDispositionRecherche = new HBox(5, vbCriteres, vbBtnRecherche);
+		HBox hbDispositionRecherche = new HBox(5, vbCriteres, vbBtnRecherche, vbImporterTelecharger);
 		hbDispositionRecherche.setPadding(new Insets(10));
 
 		// Insérer le tableau vueTableau 
@@ -251,9 +255,11 @@ public class VueStagiaire extends Scene {
 		vbTableau.setMaxHeight(550);
 		vbTableau.setPadding(new Insets(10));
 		refreshTable();
-
+		
+		
+		
 		VBox vbRechercheTableau = new VBox();
-		vbRechercheTableau.getChildren().addAll(listeStagiaires, hbDispositionRecherche);
+		vbRechercheTableau.getChildren().addAll(lbListeStagiaires, hbDispositionRecherche);
 		vbRechercheTableau.setAlignment(Pos.TOP_CENTER);
 		vbRechercheTableau.setSpacing(10);
 
@@ -270,11 +276,11 @@ public class VueStagiaire extends Scene {
 		btnTelecharger.setAlignment(Pos.BOTTOM_CENTER);
 		
 		// Hbox pour gerer les hbox telecharger et importer
-		HBox hbImprimerImporter = new HBox(btnImporter, btnTelecharger);
-		hbImprimerImporter.setAlignment(Pos.CENTER);
-		hbImprimerImporter.setSpacing(160);
-		hbImprimerImporter.setMinHeight(50);
-		
+//		HBox hbImprimerImporter = new HBox(btnImporter, btnTelecharger);
+//		hbImprimerImporter.setAlignment(Pos.CENTER);
+//		hbImprimerImporter.setSpacing(160);
+//		hbImprimerImporter.setMinHeight(50);
+		vbImporterTelecharger.getChildren().addAll(btnImporter, btnTelecharger);
 		// -----------------Fin de la Hbox Importer et telecharger-------------------
 
 		// -----------------Début de la Hbox Ajouter, Modifier,Supprimer-------------------
@@ -309,7 +315,8 @@ public class VueStagiaire extends Scene {
 
 		// -----------------Début de la Vbox qui affiche toute la page -------------------
 
-		fenetre.getChildren().addAll(hautPage, vbRechercheTableau, vbTableau, hbImprimerImporter, hbAjouterModifierSupprimer);
+//		fenetre.getChildren().addAll(hautPage, vbRechercheTableau, vbTableau, hbImprimerImporter, hbAjouterModifierSupprimer);
+		fenetre.getChildren().addAll(hautPage, vbRechercheTableau, vbTableau, hbAjouterModifierSupprimer);
 		fenetre.setSpacing(5);
 
 

@@ -81,14 +81,19 @@ public class App extends Application {
 	    	fileChooser.setTitle("Open Resource File");
 	    	fileChooser.getExtensionFilters().add(new ExtensionFilter(".don files", "*.don"));;  	
 	    	File f = fileChooser.showOpenDialog(stage);
-			vueListeStagiaire.importer(f);
+	    	if(f!=null) {
+	    		vueListeStagiaire.importer(f);
+	    	}
     	});
     	
     	vueListeStagiaire.getBtnTelecharger().setOnAction(event ->{
-    		FileChooser fileChooser = new FileChooser();
     		DirectoryChooser dirChooser = new DirectoryChooser();
     		dirChooser.setTitle("Open Resource File");
-    		vueListeStagiaire.telecharger(dirChooser.showDialog(stage).getAbsolutePath());
+//    		String path = dirChooser.showDialog(stage).getAbsolutePath();
+    		File f = dirChooser.showDialog(stage);
+    		if(f != null) {
+    			vueListeStagiaire.telecharger(f.getAbsolutePath());
+    		}
     	});
     	
     	vueEnregistrement.getBtnConfirmation().setOnAction(event ->{
