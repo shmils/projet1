@@ -45,8 +45,7 @@ public class App extends Application {
     		boolean isAdmin = vueLogin.getCbAdmin().isSelected();
     		if(vueLogin.authentifier(vueLogin.getTfNom().getText(), 
     				vueLogin.getMotdePasse(), isAdmin)) {
-    			vueListeStagiaire.getBtnModifierStagiaire().setDisable(!isAdmin);
-    			vueListeStagiaire.getBtnSupprimerStagiaire().setDisable(!isAdmin);
+    			vueListeStagiaire.setIsAdmin(isAdmin);
     			stage.setScene(vueListeStagiaire);
         		stage.setTitle("My Intern - Liste");
     		} else {
@@ -72,6 +71,7 @@ public class App extends Application {
     	});
     	
     	vueListeStagiaire.getBtnAjouterStagiaire().setOnAction(event ->{
+    		vueEnregistrement.initTextFields();
     		stage.setScene(vueEnregistrement);
     		stage.setTitle("My Intern - Ajouter");
     	});
@@ -89,7 +89,6 @@ public class App extends Application {
     	vueListeStagiaire.getBtnTelecharger().setOnAction(event ->{
     		DirectoryChooser dirChooser = new DirectoryChooser();
     		dirChooser.setTitle("Open Resource File");
-//    		String path = dirChooser.showDialog(stage).getAbsolutePath();
     		File f = dirChooser.showDialog(stage);
     		if(f != null) {
     			vueListeStagiaire.telecharger(f.getAbsolutePath());

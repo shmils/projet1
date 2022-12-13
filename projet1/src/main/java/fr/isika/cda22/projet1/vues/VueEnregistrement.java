@@ -95,7 +95,6 @@ public class VueEnregistrement extends Scene{
 		vboxCentrale.getChildren().add(imageView);
 
 		//sous arbre 3 (informations stagaire)
-
 		tfNom = initTf("Nom");
 		tfPrenom = initTf("Prénom");
 		tfLocalisation = initTf("Localisation");
@@ -199,6 +198,14 @@ public class VueEnregistrement extends Scene{
 			tf.clear();
 		});
 		return tf;
+	}
+	
+	public void initTextFields() {
+		tfNom.setText("Nom");
+		tfPrenom.setText("Prénom");
+		tfLocalisation.setText("Localisation");
+		tfFormation.setText("Formation");
+		tfAnneePromo.setText("Annee de promotion");
 	}
 	
 	public ArrayList<String> getTextFields(){

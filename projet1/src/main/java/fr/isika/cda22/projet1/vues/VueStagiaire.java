@@ -66,6 +66,7 @@ public class VueStagiaire extends Scene {
 	private ModelButton btnImporter;
 	private ModelButton btnTelecharger;
 	private VBox vbCriteres;
+	private boolean isAdmin;
 	
 	public Arbre getMonArbre() {
 		return monArbre;
@@ -131,6 +132,10 @@ public class VueStagiaire extends Scene {
 		this.btnSupprimerStagiaire = btnSupprimerStagiaire;
 	}
 
+	public void setIsAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
 	public VueStagiaire() {
 	
 		super(new VBox(), 700, 800);
@@ -141,7 +146,7 @@ public class VueStagiaire extends Scene {
 		fenetre.setStyle("-fx-background-color:beige");
 
 		// -----------------Début de la Hbox Haut de la page -------------------
-
+		isAdmin = true;
 		// Création du logo
 		HbLogo cercleMyIntern = new HbLogo();
 		
@@ -239,6 +244,7 @@ public class VueStagiaire extends Scene {
 		btnResetTableau.setOnAction(event ->{
 			refreshTable();
 		});
+		
 		VBox vbImporterTelecharger = new VBox(5);
 		vbImporterTelecharger.setPadding(new Insets(10));
 		vbImporterTelecharger.setAlignment(Pos.CENTER);
@@ -256,7 +262,12 @@ public class VueStagiaire extends Scene {
 		vbTableau.setPadding(new Insets(10));
 		refreshTable();
 		
-		
+		vbTableau.getTable().getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		    	btnSupprimerStagiaire.setDisable(!isAdmin);
+		    	btnModifierStagiaire.setDisable(!isAdmin);
+		    }
+		});
 		
 		VBox vbRechercheTableau = new VBox();
 		vbRechercheTableau.getChildren().addAll(lbListeStagiaires, hbDispositionRecherche);
@@ -293,11 +304,13 @@ public class VueStagiaire extends Scene {
 		// Création bouton modifier
 		btnModifierStagiaire = new ModelButton("Modifier un\n   Stagiaire");
 		btnModifierStagiaire.setPrefHeight(50);
+		btnModifierStagiaire.setDisable(true);
 //		btnModifierStagiaire.setAlignment(Pos.BASELINE_CENTER);
 
 		// Création boutton supprimer
 		btnSupprimerStagiaire = new ModelButton("Supprimer un\n    Stagiaire");
 		btnSupprimerStagiaire.setPrefHeight(50);
+		btnSupprimerStagiaire.setDisable(true);
 //		btnSupprimerStagiaire.setAlignment(Pos.BASELINE_CENTER);
 		
 		btnSupprimerStagiaire.setOnAction(event ->{
