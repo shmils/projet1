@@ -75,7 +75,7 @@ public class vbTableau extends VBox {
 		// On ajoute les cinq colonnes à la table
 		table.getColumns().addAll(nomCol, prenomCol, localisationCol, nomPromoCol, anneePromoCol);
 
-		table.setItems(getStagiaireList());
+//		table.setItems(getStagiaireList());
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		this.getChildren().add(table);
 	}

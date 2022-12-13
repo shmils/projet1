@@ -1,5 +1,6 @@
 package fr.isika.cda22.projet1.vues;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.isika.cda22.projet1.composantsJFX.*;
+import fr.isika.cda22.projet1.entites.Arbre;
 import fr.isika.cda22.projet1.entites.Stagiaire;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -44,13 +46,22 @@ public class VueStagiaire extends Scene {
 			"Nom de la Formation", "Annee Promo" };
 	
 	private vbTableau vbTableau;
-	private ArrayList<String> listCriteres; 
+	private ArrayList<String> listCriteres;
+	private Arbre monArbre;
 	private ModelButton btnAjouterStagiaire;
 	private ModelButton btnModifierStagiaire;
 	private ModelButton btnSupprimerStagiaire;
 	private ModelButton seDeconnecter;
 	private VBox Criteres;
 	
+	public Arbre getMonArbre() {
+		return monArbre;
+	}
+
+	public void setMonArbre(Arbre monArbre) {
+		this.monArbre = monArbre;
+	}
+
 	public vbTableau getVbTableau() {
 		return vbTableau;
 	}
@@ -152,7 +163,10 @@ public class VueStagiaire extends Scene {
 		ModelButton RechercheFiltre = new ModelButton("Rechercher");
 		RechercheFiltre.setAlignment(Pos.BOTTOM_CENTER);
 		//RechercheFiltre.setTextFill(Color.SADDLEBROWN);
-		VBox Boutons = new VBox(2,RechercheFiltre ,Ajouter, Supprimer );
+		ModelButton btnReset = new ModelButton("Retablir Tableau");
+		btnReset.setAlignment(Pos.BOTTOM_CENTER);
+		
+		VBox Boutons = new VBox(2,RechercheFiltre ,Ajouter, Supprimer, btnReset );
 
 		// méthode des bouton ajouter et supprimer
 		Ajouter.setOnAction(new EventHandler<ActionEvent>() {
@@ -203,9 +217,20 @@ public class VueStagiaire extends Scene {
 				TextField tf = (TextField) ((HBox)hb).getChildren().get(1);
 				monMap.put(cb.getValue().toString(), tf.getText());
 				}				
-				Stagiaire stgRecherche = new Stagiaire(monMap);
-				System.out.println(stgRecherche);
+//				Stagiaire stgRecherche = new Stagiaire(monMap);
+				ArrayList<Stagiaire> stgs = monArbre.rechercheCritere(monMap);
+//				System.out.println(monArbre);
+//				System.out.println(stgs.size());
+//				for(Stagiaire s: stgs) {
+//					System.out.println(s);
+//				}
+//				refreshTable();
+				vbTableau.setListeStagiaire(stgs);
 			}	
+		});
+		
+		btnReset.setOnAction(event ->{
+			refreshTable();
 		});
 		
 		// VBox
@@ -231,9 +256,11 @@ public class VueStagiaire extends Scene {
 		// label liste stagiaires et le tableau
 
 		// Insérer le tableau vueTableau 
-
+		monArbre = new Arbre("src/main/java/fr/isika/cda22/projet1/fichiers/arbre1.bin");
+		
 		vbTableau  = new vbTableau();
 		vbTableau.setMaxHeight(550);
+		refreshTable();
 
 //		ObservableList<Stagiaire> selectedItems = vbTableau.getTable().getSelectionModel().getSelectedItems();
 //		selectedItems.addListener(
@@ -258,6 +285,13 @@ public class VueStagiaire extends Scene {
 		// Bouton importer
 		ModelButton btnImporter = new ModelButton("Importer");
 		btnImporter.setAlignment(Pos.BOTTOM_CENTER);
+		
+		btnImporter.setOnAction(event ->{
+			File f = new File("src/main/java/fr/isika/cda22/projet1/fichiers/STAGIAIRES_complet.DON");
+			monArbre.importerFile(f);
+			refreshTable();
+		});
+		
 
 		// bouton telecharger
 		ModelButton btnTelecharger = new ModelButton("Télécharger");
@@ -290,10 +324,11 @@ public class VueStagiaire extends Scene {
 		
 		btnSupprimerStagiaire.setOnAction(event ->{
 			Stagiaire ancienStagiaire = vbTableau.getTable().getSelectionModel().getSelectedItem();
-			vbTableau.getListeStagiaire().remove(ancienStagiaire);
+//			vbTableau.getListeStagiaire().remove(ancienStagiaire);
 //			vbTableau.setListeStagiaire(vbTableau.getListeStagiaire());
-			vbTableau.getTable().setItems(FXCollections.observableArrayList(vbTableau.getListeStagiaire()));
+//			vbTableau.getTable().setItems(FXCollections.observableArrayList(vbTableau.getListeStagiaire()));
 //			System.out.println(ancienStagiaire);
+			this.supprimerStagiaire(ancienStagiaire);
 		});
 
 		// Hbox pour gerer les trois boutons
@@ -326,9 +361,23 @@ public class VueStagiaire extends Scene {
 		return HB;
 	}
 	
-	public void afficherRecherche(String Filtre) {
-		
+	public void refreshTable() {
+		vbTableau.setListeStagiaire(monArbre.toArray());
+	}
+	
+	public void ajouterStagiaire(Stagiaire cleAjouter) {
+		monArbre.ajouterStagiaire(cleAjouter);
+		refreshTable();
+	}
+	
+	public void modifierStagiaire(Stagiaire ancienStagiaire, Stagiaire cleModifie) {
+		monArbre.modifierNoeud(ancienStagiaire, cleModifie);
+		refreshTable();
+	}
 
+	public void supprimerStagiaire(Stagiaire cleSupprimer) {
+		monArbre.supprimerNoeud(cleSupprimer);
+		refreshTable();
 	}
 	
 }

@@ -73,11 +73,10 @@ public class App extends Application {
     		//creer un Stagiaire
     		Stagiaire cleAjouter = new Stagiaire(attributs.get(0),attributs.get(1),attributs.get(2),attributs.get(3),attributs.get(4));
     		//ajouter le Stagiaire sur le tableau
-//    		vueListeStagiaire.getVbTableau().ajouterStagiaire(cleAjouter);
-    		vueListeStagiaire.getVbTableau().getListeStagiaire().add(cleAjouter);
-    		vueListeStagiaire.getVbTableau().setListeStagiaire(vueListeStagiaire.getVbTableau().getListeStagiaire());
+    		vueListeStagiaire.ajouterStagiaire(cleAjouter);
     		retourEnListe(stage);
     	});
+    	
     	vueEnregistrement.getButtonRetour().setOnAction(event ->{
     		retourEnListe(stage);
     	});
@@ -88,10 +87,11 @@ public class App extends Application {
     		Stagiaire cleModifier = new Stagiaire(attributs.get(0),attributs.get(1),attributs.get(2),attributs.get(3),attributs.get(4));
     		//ajouter le Stagiaire sur le tableau
 //    		vueListeStagiaire.getVbTableau().ajouterStagiaire(cleModifier);
-    		vueListeStagiaire.getVbTableau().getListeStagiaire().remove(vueModification.getAncienStagiaire());
-    		vueListeStagiaire.getVbTableau().getListeStagiaire().add(cleModifier);
-    		vueListeStagiaire.getVbTableau().setListeStagiaire(vueListeStagiaire.getVbTableau().getListeStagiaire());
+//    		vueListeStagiaire.getVbTableau().getListeStagiaire().remove(vueModification.getAncienStagiaire());
+//    		vueListeStagiaire.getVbTableau().getListeStagiaire().add(cleModifier);
+//    		vueListeStagiaire.getVbTableau().setListeStagiaire(vueListeStagiaire.getVbTableau().getListeStagiaire());
 //    		monAbre.modifierStagiaire(vueModification.getAncienStagiaire(),cleModifier);
+    		vueListeStagiaire.modifierStagiaire(vueModification.getAncienStagiaire(), cleModifier);
     		retourEnListe(stage);
     	});
     	vueModification.getButtonRetour().setOnAction(event ->{

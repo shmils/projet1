@@ -2,6 +2,7 @@ package fr.isika.cda22.projet1.entites;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -15,9 +16,14 @@ public class Arbre {
 	private int indiceRacine;
 	
 	//constructeur
-	public Arbre(String fileName) throws IOException {
+	public Arbre(String fileName) {
 		super();
-		raf = new RandomAccessFile(new File(fileName), "rw");
+		try {
+			raf = new RandomAccessFile(new File(fileName), "rw");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.indiceRacine = 0;
 	}
 	
@@ -53,7 +59,7 @@ public class Arbre {
 		}
 	}
 	
-	public void ajouterStagiaire(Stagiaire stagiaire) throws IOException {
+	public void ajouterStagiaire(Stagiaire stagiaire){
 		if(this.isEmpty()) {
 			Noeud.writeNoeudBin(stagiaire, raf);
 		}else {
@@ -63,10 +69,10 @@ public class Arbre {
 	}
 	
 	public ArrayList<Stagiaire> toArray() {
+		ArrayList<Stagiaire> stgArray = new ArrayList<>();
 		if(this.isEmpty()) {
-			return null;
+			return stgArray ;
 		} else {
-			ArrayList<Stagiaire> stgArray = new ArrayList<>();
 			Noeud.readNoeudBin(raf, this.indiceRacine).toArray(stgArray, raf);
 			return stgArray;
 		}
@@ -82,11 +88,16 @@ public class Arbre {
 		}
 	}
 	
-	public int rechercheNoeud(Stagiaire cleRecherche) throws IOException {
+	public int rechercheNoeud(Stagiaire cleRecherche){
 		if(this.isEmpty()) {
 			return -1;
 		} else {
-			return Noeud.readNoeudBin(raf, this.indiceRacine).rechercheNoeud(raf, cleRecherche);
+			try {
+				return Noeud.readNoeudBin(raf, this.indiceRacine).rechercheNoeud(raf, cleRecherche);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return -1;
+			}
 		}
 	}
 	
@@ -110,14 +121,10 @@ public class Arbre {
 		if(this.isEmpty()) {
 			return;
 		}
-		try {
-			this.indiceRacine = supprimerNoeud(this.indiceRacine, cleSupprimer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.indiceRacine = supprimerNoeud(this.indiceRacine, cleSupprimer);
 	}
 	
-	private int supprimerNoeud(int indiceRacine, Stagiaire cleSupprimer) throws IOException {
+	private int supprimerNoeud(int indiceRacine, Stagiaire cleSupprimer) {
 		if(indiceRacine == -1) return indiceRacine;
 		Noeud noeudActuel = Noeud.readNoeudBin(raf, indiceRacine);
 		if(noeudActuel.getCle().compareTo(cleSupprimer) > 0) { //si > ; on cherche à Droit
@@ -164,13 +171,17 @@ public class Arbre {
 		return indiceRacine; //retourner l'indice du noeud actuel
 	}
 
-	public void modifierNoeud(Stagiaire ancienStg, Stagiaire nvStg) throws IOException {
+	public void modifierNoeud(Stagiaire ancienStg, Stagiaire nvStg) {
 		if(!this.isEmpty()) {
 			int indiceNoeud = rechercheNoeud(ancienStg);
 			if (indiceNoeud != -1) {
 				if( ancienStg.compareTo(nvStg) == 0) {
-					raf.seek(indiceNoeud*Noeud.getTailleNoeudOctet());
-					nvStg.writeStagiaireToBin(raf);
+					try {
+						raf.seek(indiceNoeud*Noeud.getTailleNoeudOctet());
+						nvStg.writeStagiaireToBin(raf);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				} else {
 					supprimerNoeud(ancienStg);
 					ajouterStagiaire(nvStg);

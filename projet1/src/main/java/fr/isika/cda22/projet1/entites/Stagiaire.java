@@ -19,8 +19,10 @@ public class Stagiaire extends Personne{
 	//constructeur
 	public Stagiaire(String nom, String prenom, String localisation, String nomFormation, String anneePromo) {
 		super(nom.toUpperCase(), prenom);
+		
 		this.localisation = localisation;
-		this.nomFormation = nomFormation.toUpperCase();
+//		this.nomFormation = nomFormation.toUpperCase();
+		this.nomFormation = nomFormation;
 		if(isNumeric(anneePromo)) {
 			this.anneePromo = anneePromo;
 		} else {
