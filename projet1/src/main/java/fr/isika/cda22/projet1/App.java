@@ -1,5 +1,6 @@
 package fr.isika.cda22.projet1;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import fr.isika.cda22.projet1.composantsJFX.vbTableau;
@@ -9,8 +10,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 
 /**
@@ -65,6 +68,18 @@ public class App extends Application {
     	vueListeStagiaire.getBtnAjouterStagiaire().setOnAction(event ->{
     		stage.setScene(vueEnregistrement);
     		stage.setTitle("My Intern - Ajouter");
+    	});
+    	
+    	vueListeStagiaire.geBtntImporter().setOnAction(event->{
+    			FileChooser fileChooser = new FileChooser();
+    	    	fileChooser.setTitle("Open Resource File");
+    	    	fileChooser.getExtensionFilters().add(new ExtensionFilter(".don files", "*.don"));;  	
+    	    	File f = fileChooser.showOpenDialog(stage);
+//    	    	String nomFichier = fileChooser.g
+//    	    	System.out.println(f.getName());
+//    			File f = new File("src/main/java/fr/isika/cda22/projet1/fichiers/STAGIAIRES_complet.DON");
+    			vueListeStagiaire.getMonArbre().importerFile(f);
+    			vueListeStagiaire.refreshTable();
     	});
     	
     	vueEnregistrement.getBtnConfirmation().setOnAction(event ->{

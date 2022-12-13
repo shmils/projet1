@@ -18,16 +18,12 @@ public class Stagiaire extends Personne{
 	
 	//constructeur
 	public Stagiaire(String nom, String prenom, String localisation, String nomFormation, String anneePromo) {
-		super(nom.toUpperCase(), prenom);
-		
+		super(nom, prenom);
 		this.localisation = localisation;
-//		this.nomFormation = nomFormation.toUpperCase();
-		this.nomFormation = nomFormation;
-		if(isNumeric(anneePromo)) {
+		this.nomFormation = Verificateur.upperCase(nomFormation);
+		if(Verificateur.isNumeric(anneePromo)) {
 			this.anneePromo = anneePromo;
-		} else {
-			this.anneePromo = "0";
-		}
+		} 
 	}
 	
 	public Stagiaire(Map<String, String> map) {
@@ -35,48 +31,6 @@ public class Stagiaire extends Personne{
 				map.get("Nom de la Formation"), map.get("Annee Promo"));
 	}
 	
-	private String capitalize(String original) {
-		if(original.contains(" ")) {
-			String[] s = original.split(" ");
-			if(s.length == 1) {
-				return capitalizeWord(original);
-			} else {
-				String capitalized = "";
-				for(String sub: s) {
-					capitalized += capitalizeWord(sub) + " ";
-				}
-				return capitalized.substring(0,capitalized.length()-1);
-			}
-		} else if(original.contains("-")) {
-			String[] s = original.split("-");
-			if(s.length == 1) {
-				return capitalizeWord(original);
-			} else {
-				String capitalized = "";
-				for(String sub: s) {
-					capitalized += capitalizeWord(sub) + "-";
-				}
-				return capitalized.substring(0,capitalized.length()-1);
-			}
-		}
-		return capitalizeWord(original);
-	}
-	
-	private String capitalizeWord(String word) {
-		if(word.length() > 1) {
-			return word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();	
-		}
-		return word;
-	}
-	
-	public boolean isNumeric(String strNum) {
-    	Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?"); 
-    	if(strNum == null) {
-    		return false;
-    	} else {
-    		return pattern.matcher(strNum).matches();
-    	}
-    }
 	
 	//getters & setters
 	

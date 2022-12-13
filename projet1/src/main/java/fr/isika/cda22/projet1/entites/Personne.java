@@ -1,5 +1,7 @@
 package fr.isika.cda22.projet1.entites;
 
+import java.util.regex.Pattern;
+
 public abstract class Personne {
 	
 	//attributs
@@ -9,8 +11,8 @@ public abstract class Personne {
 	//contsructeur
 	
 	public Personne(String nom, String prenom) {
-		this.nom = nom;
-		this.prenom = prenom;
+		this.nom = Verificateur.upperCase(nom);
+		this.prenom = Verificateur.capitalize(prenom);
 	}
 
 	
@@ -30,5 +32,5 @@ public abstract class Personne {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-		
+
 }

@@ -103,27 +103,6 @@ public class VueLogin extends Scene{
 		root.setAlignment(Pos.CENTER);
 	
 		//On instancie une HBox:
-		
-		
-//		HBox hboxMyIntern = new HBox();
-//		
-//		// on commence par instancie une label :
-//		
-//		Label myIntern = new Label ("My intern ");
-//		myIntern.setTextFill(Color.SADDLEBROWN);
-//		myIntern.setFont(Font.font("Brush Script MT", 25));
-//		//myIntern.relocate(20, 100);
-//		myIntern.setAlignment(Pos.TOP_CENTER);
-//		
-//		//On instancie des objets à afficher sur le panneau, on les stylise et on les positionne:
-//		Circle cercle = new Circle(5);
-//		cercle.setFill(Color.GOLD);
-//		cercle.setStroke(Color.SADDLEBROWN);
-//		//cercle.relocate(288,30);
-//		
-//		hboxMyIntern.getChildren().addAll(cercle,myIntern);
-//		hboxMyIntern.setAlignment(Pos.CENTER);
-//		hboxMyIntern.setSpacing(5);
 		HbLogo hboxMyIntern = new HbLogo();
 		hboxMyIntern.setAlignment(Pos.CENTER);
 		
@@ -149,7 +128,7 @@ public class VueLogin extends Scene{
         welcomeImg.setAlignment(Pos.TOP_CENTER);
         welcomeImg.setSpacing(20);
 		
-     // on instancie une GridPAne pour tous:
+        // on instancie une GridPAne pour tous:
         
 		GridPane gridUserPass = new GridPane();
 		
@@ -185,7 +164,6 @@ public class VueLogin extends Scene{
         viewVisibile.setPreserveRatio(true);
         
         Button btnChangerVisibilite = new Button();
-//        btnChangerVisibilite.setMinSize(5,5);
         btnChangerVisibilite.setGraphic(viewHidden);
         btnChangerVisibilite.setAlignment(Pos.CENTER_RIGHT);
         btnChangerVisibilite.setOnAction(new EventHandler<ActionEvent>() {
@@ -210,7 +188,6 @@ public class VueLogin extends Scene{
 		gridUserPass.add(labelNom, 0, 0);
 		gridUserPass.add(tfNom, 1, 0);
 		gridUserPass.add(labelMotdePass, 0, 1);
-//		gridUserPass.add(PfMotdePass, 1,1);
 		gridUserPass.add(hbMotdePass, 1,1);
 		
 		gridUserPass.setHgap(20);

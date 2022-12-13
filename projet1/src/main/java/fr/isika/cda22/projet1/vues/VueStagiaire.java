@@ -38,6 +38,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class VueStagiaire extends Scene {
@@ -52,6 +54,7 @@ public class VueStagiaire extends Scene {
 	private ModelButton btnModifierStagiaire;
 	private ModelButton btnSupprimerStagiaire;
 	private ModelButton seDeconnecter;
+	private ModelButton btnImporter;
 	private VBox Criteres;
 	
 	public Arbre getMonArbre() {
@@ -100,6 +103,10 @@ public class VueStagiaire extends Scene {
 
 	public ModelButton getSeDeconnecter() {
 		return seDeconnecter;
+	}
+	
+	public ModelButton geBtntImporter() {
+		return btnImporter;
 	}
 
 	public void setSeDeconnecter(ModelButton seDeconnecter) {
@@ -256,24 +263,13 @@ public class VueStagiaire extends Scene {
 		// label liste stagiaires et le tableau
 
 		// Insérer le tableau vueTableau 
-		monArbre = new Arbre("src/main/java/fr/isika/cda22/projet1/fichiers/arbre1.bin");
+		monArbre = new Arbre("src/main/java/fr/isika/cda22/projet1/fichiers/arbre2.bin");
 		
 		vbTableau  = new vbTableau();
 		vbTableau.setMaxHeight(550);
 		refreshTable();
 
-//		ObservableList<Stagiaire> selectedItems = vbTableau.getTable().getSelectionModel().getSelectedItems();
-//		selectedItems.addListener(
-//		  new ListChangeListener<Person>() {
-//			 @Override
-//		    public void onChanged(
-//		      Change<? extends Stagiaire> change) {
-//		        System.out.println(
-//		          "Selection changed: " + change.getList());
-//		      }
-//		});
 		VBox vbRechercheTableau = new VBox();
-		//rechercheTableau.setPadding(new Insets(10));
 		vbRechercheTableau.getChildren().addAll(listeStagiaires,DispositionRecherche);
 		vbRechercheTableau.setAlignment(Pos.TOP_CENTER);
 		vbRechercheTableau.setSpacing(10);
@@ -283,15 +279,8 @@ public class VueStagiaire extends Scene {
 
 		// -----------------Début de la Hbox Importer et telecharger-------------------
 		// Bouton importer
-		ModelButton btnImporter = new ModelButton("Importer");
-		btnImporter.setAlignment(Pos.BOTTOM_CENTER);
-		
-		btnImporter.setOnAction(event ->{
-			File f = new File("src/main/java/fr/isika/cda22/projet1/fichiers/STAGIAIRES_complet.DON");
-			monArbre.importerFile(f);
-			refreshTable();
-		});
-		
+		btnImporter = new ModelButton("Importer");
+		btnImporter.setAlignment(Pos.BOTTOM_CENTER);	
 
 		// bouton telecharger
 		ModelButton btnTelecharger = new ModelButton("Télécharger");
@@ -324,10 +313,6 @@ public class VueStagiaire extends Scene {
 		
 		btnSupprimerStagiaire.setOnAction(event ->{
 			Stagiaire ancienStagiaire = vbTableau.getTable().getSelectionModel().getSelectedItem();
-//			vbTableau.getListeStagiaire().remove(ancienStagiaire);
-//			vbTableau.setListeStagiaire(vbTableau.getListeStagiaire());
-//			vbTableau.getTable().setItems(FXCollections.observableArrayList(vbTableau.getListeStagiaire()));
-//			System.out.println(ancienStagiaire);
 			this.supprimerStagiaire(ancienStagiaire);
 		});
 

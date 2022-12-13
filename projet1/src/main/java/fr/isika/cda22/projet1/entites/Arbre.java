@@ -206,7 +206,6 @@ public class Arbre {
 					attributs.add(s);
 				} else {
 					Stagiaire stg = new Stagiaire(attributs.get(0), attributs.get(1), attributs.get(2),attributs.get(3),attributs.get(4));
-					System.out.println(stg);
 					this.ajouterStagiaire(stg);
 					attributs.clear();
 				}
