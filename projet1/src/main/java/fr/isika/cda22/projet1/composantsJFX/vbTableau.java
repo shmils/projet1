@@ -32,7 +32,9 @@ public class vbTableau extends VBox {
 
 	public void setListeStagiaire(ArrayList<Stagiaire> listeStagiaire) {
 		this.listeStagiaire = listeStagiaire;
-		table.setItems(FXCollections.observableArrayList(this.listeStagiaire));
+		if(this.listeStagiaire != null){ 
+			table.setItems(FXCollections.observableArrayList(this.listeStagiaire));
+		}
 	}
 
 	public  vbTableau() {

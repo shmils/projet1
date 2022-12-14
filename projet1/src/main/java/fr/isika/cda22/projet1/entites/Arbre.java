@@ -124,10 +124,12 @@ public class Arbre {
 		this.indiceRacine = supprimerNoeud(this.indiceRacine, cleSupprimer);
 		if(this.indiceRacine == -1) {
 			try {
-			File f = new File(fileName);
-			f.delete();
-				raf = new RandomAccessFile(f, "rw");
-			} catch (FileNotFoundException e) {
+				raf.close();
+				File f = new File(fileName);
+				f.delete();
+				raf = new RandomAccessFile(new File(fileName), "rw");
+				this.indiceRacine = 0;
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
