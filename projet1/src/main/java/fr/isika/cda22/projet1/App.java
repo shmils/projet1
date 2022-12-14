@@ -25,7 +25,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 
 /**
- * JavaFX App
+ *class representant le lanceur de l'application
  */
 public class App extends Application {
 	
@@ -59,6 +59,7 @@ public class App extends Application {
     	vueListeStagiaire.getBtnModifierStagiaire().setOnAction(event ->{
     		//on devra creer le stagiare à modifier
     		vueModification.setAncienStagiaire(vueListeStagiaire.getVbTableau().getTable().getSelectionModel().getSelectedItem());
+    		//on remplir les different fields
     		vueModification.remplirFields();
     		stage.setScene(vueModification);
     		stage.setTitle("My Intern - Modifier");

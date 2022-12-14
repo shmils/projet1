@@ -13,30 +13,54 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * classe representant un VBox contenant un Tableau
+ * @author shmilany
+ *
+ */
 public class vbTableau extends VBox {
 	
 	private ArrayList<Stagiaire> listeStagiaire;
 	private TableView<Stagiaire> table;
 	
+	/**
+	 * methode permettant d'acceder au tableau
+	 * @return un TableView
+	 */
 	public TableView<Stagiaire> getTable() {
 		return table;
 	}
 
+	/**
+	 * methode permettant de modifier tableau
+	 * @param table
+	 */
 	public void setTable(TableView<Stagiaire> table) {
 		this.table = table;
 	}
 
+	/**
+	 * methode permettant d'acceder à la liste des stagiaire
+	 * @return arrayList
+	 */
 	public ArrayList<Stagiaire> getListeStagiaire() {
 		return listeStagiaire;
 	}
 
+	/**
+	 * methode permettant de modifier liste tableau et actualiser le continue de tableau
+	 * @param listeStagiaire
+	 */
 	public void setListeStagiaire(ArrayList<Stagiaire> listeStagiaire) {
 		this.listeStagiaire = listeStagiaire;
-		if(this.listeStagiaire != null){ 
-			table.setItems(FXCollections.observableArrayList(this.listeStagiaire));
+		if(this.listeStagiaire != null){ //verifier si arrayList est null
+			table.setItems(FXCollections.observableArrayList(this.listeStagiaire)); //actualiser le continue de tableau
 		}
 	}
 
+	/**
+	 * constructeur permettant d'initialiser le vbTalbeau
+	 */
 	public  vbTableau() {
 		super(5);
 		// Création de la table
@@ -82,6 +106,10 @@ public class vbTableau extends VBox {
 		this.getChildren().add(table);
 	}
 
+	/**
+	 * methode retournant remplir l'initaliser un liste de teste
+	 * @return ObservableList<Stagiaire>
+	 */
 	private ObservableList<Stagiaire> getStagiaireList() {
 		Stagiaire Stagiaire1 = new Stagiaire("Bleriot", "Louis", "94", "CDA22", "2022");
 		Stagiaire Stagiaire2 = new Stagiaire("Jeandes", "Bernard","85", "CDA41", "2012");
@@ -93,6 +121,10 @@ public class vbTableau extends VBox {
 		return list;
 	}
 	
+	/**
+	 * methode permettant d'ajouter un stagiaire au tableau et actualise le contenu du tableau
+	 * @param cleAjouter
+	 */
 	public void ajouterStagiaire(Stagiaire cleAjouter){
 		listeStagiaire.add(cleAjouter);
 		ObservableList<Stagiaire> list = FXCollections.observableArrayList(listeStagiaire);

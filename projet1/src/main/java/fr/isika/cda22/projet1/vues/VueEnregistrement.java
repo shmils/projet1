@@ -29,6 +29,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+/**
+ * Classe representant la scene d'ajout d'un Stagiaire
+ * 
+ * @author PAUBEL Paul
+ *
+ */
 
 public class VueEnregistrement extends Scene{
 
@@ -43,7 +49,9 @@ public class VueEnregistrement extends Scene{
 	private Button btnConfirmation;
 	private Button buttonRetour;
 
-
+	/**
+	 * constructeur permettant d'initialiser une VueEnregistrement
+	 */
 	public VueEnregistrement() {
 
 		super(new VBox(),500,700);
@@ -178,15 +186,23 @@ public class VueEnregistrement extends Scene{
 		this.buttonRetour = buttonRetour;
 	}
 
+	/**
+	 * methode permettant de creer un ModelTextField avec une event handler
+	 * @param contenue 
+	 * @return ModelTextField
+	 */
 	private ModelTextField initTf(String contenue) {
-		ModelTextField tf = new ModelTextField(contenue);
-		tf.setMaxSize(300,20);
-		tf.setOnMouseClicked(event ->{
+		ModelTextField tf = new ModelTextField(contenue); //initialiser un ModelTextField
+		tf.setMaxSize(300,20); //changer taille
+		tf.setOnMouseClicked(event ->{ //supprimer contenue quand on appuie sur le field
 			tf.clear();
 		});
 		return tf;
 	}
 	
+	/**
+	 * methode permettant de reinitialiser les fields de la vue
+	 */
 	public void initTextFields() {
 		tfNom.setText("Nom");
 		tfPrenom.setText("Prénom");
@@ -195,6 +211,11 @@ public class VueEnregistrement extends Scene{
 		tfAnneePromo.setText("Annee de promotion");
 	}
 	
+	
+	/**
+	 * methode permettant de recuperer les données entrées dans les TextFields
+	 * @return ArrayList<String>
+	 */
 	public ArrayList<String> getTextFields(){
 		ArrayList<String> attributs = new ArrayList<>();
 		attributs.add(tfNom.getText());

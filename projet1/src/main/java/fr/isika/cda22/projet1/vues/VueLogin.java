@@ -25,7 +25,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
+/**
+ * classe representant une VueLogin 
+ * 
+ * @author FLICI Lilia
+ *
+ */
 public class VueLogin extends Scene{
 
 	private ArrayList<Formatteur> Utilisateur;
@@ -36,7 +41,7 @@ public class VueLogin extends Scene{
 	private TextField TfMotdePass;
 	private Label msgErreur;
 	private ImageView viewHidden;
-	Button btnChangerVisibilite;
+	private Button btnChangerVisibilite;
 	
 	public ArrayList<Formatteur> getUtilisateur() {
 		return Utilisateur;
@@ -94,6 +99,9 @@ public class VueLogin extends Scene{
 		TfMotdePass = tfMotdePass;
 	}
 
+	/**
+	 * constructeur permettant d'initialiser une VueLogin
+	 */
 	public VueLogin() {
 		super(new VBox(),400,600);
 		VBox root = (VBox) this.getRoot();
@@ -130,7 +138,7 @@ public class VueLogin extends Scene{
         welcomeImg.setAlignment(Pos.TOP_CENTER);
         welcomeImg.setSpacing(20);
 		
-        // on instancie une GridPAne pour tous:
+        // on instancie une GridPane pour tous:
         
 		GridPane gridUserPass = new GridPane();
 		
@@ -151,14 +159,16 @@ public class VueLogin extends Scene{
 		
 		TfMotdePass = new TextField();
 		TfMotdePass.setVisible(false);
-		StackPane spMotdePasse = new StackPane(PfMotdePass, TfMotdePass);
+		StackPane spMotdePasse = new StackPane(PfMotdePass, TfMotdePass); //creer stackpane et lui ajouter pfMotdePass et tfMotDePass
 		
+		//on instacie une imageView pour btnChangerVisibilite
 		InputStream input1 = getClass().getResourceAsStream("/fr/isika/cda22/projet1/images/hidden.png");
 		Image imgHidden = new Image(input1);
         ImageView viewHidden = new ImageView(imgHidden);
         viewHidden.setFitHeight(15);
         viewHidden.setPreserveRatio(true);
         
+		//on instacie une imageView pour btnChangerVisibilite
         InputStream input2 = getClass().getResourceAsStream("/fr/isika/cda22/projet1/images/eye.png");
         Image imgVisibile = new Image(input2);
         ImageView viewVisibile = new ImageView(imgVisibile);
@@ -168,7 +178,7 @@ public class VueLogin extends Scene{
         btnChangerVisibilite = new Button();
         btnChangerVisibilite.setGraphic(viewHidden);
         btnChangerVisibilite.setAlignment(Pos.CENTER_RIGHT);
-        btnChangerVisibilite.setOnAction(new EventHandler<ActionEvent>() {
+        btnChangerVisibilite.setOnAction(new EventHandler<ActionEvent>() { //action handler pour changer la visibilité de mot De Passe (inverter visibilite de pf et tf motDePasse=
 			@Override
 			public void handle(ActionEvent event) {
 				if(PfMotdePass.isVisible()) {
@@ -242,17 +252,24 @@ public class VueLogin extends Scene{
 			
 	}
 	
+	/**
+	 * methode permettant de verifier le username et mot de passe 
+	 * @param nomUtilisateur
+	 * @param motDePasse
+	 * @param isAdmin
+	 * @return
+	 */
 	public boolean authentifier(String nomUtilisateur, String motDePasse, boolean isAdmin) {
-		for(int i=0 ; i < Utilisateur.size();i++ ) {
-			Formatteur user = Utilisateur.get(i);
-			if(isAdmin) {
+		for(int i=0 ; i < Utilisateur.size();i++ ) { //parcourir toute la liste des utlisateurs
+			Formatteur user = Utilisateur.get(i); //pour le formatteur à l'indice i
+			if(isAdmin) { //si isAdmin 
 				if(user.getNomUtilisateur().equals(nomUtilisateur) &&
-						user.getMotDePasse().equals(motDePasse) && user.isAdmin()) {
+						user.getMotDePasse().equals(motDePasse) && user.isAdmin()) { //verifier coordonnees et si l'utlisateur est admin
 					return true;
 				}
 			} else {
 				if(user.getNomUtilisateur().equals(nomUtilisateur) &&
-						user.getMotDePasse().equals(motDePasse)) {
+						user.getMotDePasse().equals(motDePasse)) {//verifier coordonnees 
 					return true;
 				}
 			}
@@ -261,6 +278,10 @@ public class VueLogin extends Scene{
 		return false;
 	}
 	
+	/**
+	 * methode permettant de recuperer le mot de passe du champ visible
+	 * @return
+	 */
 	public String getMotdePasse() {
 		if(PfMotdePass.isVisible()) {
 			return PfMotdePass.getText();
@@ -269,6 +290,9 @@ public class VueLogin extends Scene{
 		}
 	}
 
+	/**
+	 * methode permettant de reinitialiser la vueLogin
+	 */
 	public void reInit() {
 		this.TfMotdePass.clear();
 		this.PfMotdePass.clear();
