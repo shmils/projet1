@@ -14,11 +14,13 @@ public class Arbre {
 	//attributs
 	private RandomAccessFile raf;
 	private int indiceRacine;
+	private String fileName; 
 	
 	//constructeur
 	public Arbre(String fileName) {
 		super();
 		try {
+			this.fileName = fileName; 
 			raf = new RandomAccessFile(new File(fileName), "rw");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -70,12 +72,10 @@ public class Arbre {
 	
 	public ArrayList<Stagiaire> toArray() {
 		ArrayList<Stagiaire> stgArray = new ArrayList<>();
-		if(this.isEmpty()) {
-			return stgArray ;
-		} else {
+		if(!this.isEmpty()) {
 			Noeud.readNoeudBin(raf, this.indiceRacine).toArray(stgArray, raf);
-			return stgArray;
 		}
+		return stgArray;
 	}
 	
 	public ArrayList<Stagiaire> rechercheCritere(Map<String, String> mapCriteres){
@@ -122,6 +122,15 @@ public class Arbre {
 			return;
 		}
 		this.indiceRacine = supprimerNoeud(this.indiceRacine, cleSupprimer);
+		if(this.indiceRacine == -1) {
+			try {
+			File f = new File(fileName);
+			f.delete();
+				raf = new RandomAccessFile(f, "rw");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private int supprimerNoeud(int indiceRacine, Stagiaire cleSupprimer) {
