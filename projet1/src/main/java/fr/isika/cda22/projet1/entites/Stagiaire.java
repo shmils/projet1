@@ -53,6 +53,14 @@ public class Stagiaire extends Personne{
 				map.get("Nom de la Formation"), map.get("Annee Promo"));
 	}
 	
+	/**
+	 * methode permettant de cloner/copy un stagiaire
+	 * @param this Stagiaire a cloner
+	 * @return Stagiaire copie de s
+	 */
+	public Stagiaire clone() {
+		return new Stagiaire(this.getNom(), this.getPrenom(), this.getLocalisation(), this.getNomFormation(), this.getAnneePromo());
+	}
 	
 	//getters & setters
 	/**
@@ -257,6 +265,4 @@ public class Stagiaire extends Personne{
 		return false;
 	}
 
-		
-	
 }
