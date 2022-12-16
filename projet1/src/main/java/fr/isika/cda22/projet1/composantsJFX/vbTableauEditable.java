@@ -25,24 +25,26 @@ public class vbTableauEditable extends vbTableau {
 		col.setOnEditCommit(new EventHandler<CellEditEvent<Stagiaire,String>>() {
 			@Override
 			public void handle(CellEditEvent<Stagiaire, String> event) {
-                Stagiaire s = (Stagiaire) event.getTableView().getItems().get(
+                Stagiaire ancienStg = (Stagiaire) event.getTableView().getItems().get(
                         event.getTablePosition().getRow());
+                Stagiaire nvStg = ancienStg.clone();
                 if(col.equals(nomCol)) {
-                	s.setNom(event.getNewValue());
+                	nvStg.setNom(event.getNewValue());
                 }
                 if(col.equals(prenomCol)) {
-                	s.setPrenom(event.getNewValue());
+                	nvStg.setPrenom(event.getNewValue());
                 }
                 if(col.equals(localisationCol)) {
-                	s.setLocalisation(event.getNewValue());
+                	nvStg.setLocalisation(event.getNewValue());
                 }
                 if(col.equals(nomPromoCol)) {
-                	s.setNomFormation(event.getNewValue());
+                	nvStg.setNomFormation(event.getNewValue());
                 }
                 if(col.equals(anneePromoCol)) {
-                	s.setAnneePromo(event.getNewValue());
+                	nvStg.setAnneePromo(event.getNewValue());
                 }
-                	
+                monArbre.modifierNoeud(ancienStg, nvStg);
+                setListeStagiaire(monArbre.toArray());
             }
 		});
 	}
