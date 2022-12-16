@@ -390,6 +390,7 @@ public class VueStagiaire extends Scene {
 	}
 	
 	/**
+	
 	 * methode permettant d'ajouter un Stagiaire à l'arbre et mettre à jour le tableau
 	 * @param cleAjouter le stagiaire a ajouter
 	 */
@@ -399,6 +400,7 @@ public class VueStagiaire extends Scene {
 	}
 	
 	/**
+	
 	 * methode permettant de modifier un stagiaire dans l'arbre et mettre à jour le tableau
 	 * @param ancienStagiaire le Stagiaire à modifier
 	 * @param cleModifie le Stagiaire modifié
@@ -409,6 +411,7 @@ public class VueStagiaire extends Scene {
 	}
 	
 	/**
+	
 	 * methode permettant de supprimer un stagiaire de l'arbre et mettre à jour le tableau
 	 * @param cleSupprimer le Stagiaire a supprimer
 	 */
@@ -418,6 +421,7 @@ public class VueStagiaire extends Scene {
 	}
 	
 	/**
+	
 	 * methode permettant d'importer des données contenus dans un fichier vers l'arbre
 	 * @param f le Fichier contenant les données à importer
 	 */
@@ -427,6 +431,7 @@ public class VueStagiaire extends Scene {
 	}
 
 	/**
+	
 	 * methode permettant de telecharger les elements afficher dans le tableau dans un fichier pdf
 	 * @param string le path vers le directory où sauvgarder le fichier pdf
 	 */
@@ -461,6 +466,7 @@ public class VueStagiaire extends Scene {
 	}
 	
 	/**
+	
 	 * methode permettant de reinitialiser les differents composant de la VueStagiaire
 	 */
 	public void reInit() {
@@ -480,6 +486,9 @@ public class VueStagiaire extends Scene {
 	}
 	
 
+	/**
+	 * methode permettant de recuperer les differents clés de recherche et lalancer
+	 */
 	public void handleRecherche() {
 		Map<String,String> monMap = new HashMap<>(); //instancie un HashMap
 		for(Node hb : vbCriteres.getChildren()){ //pour chaque hb contenu dans vbCriteres

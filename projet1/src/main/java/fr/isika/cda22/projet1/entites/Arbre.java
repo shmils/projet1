@@ -126,16 +126,27 @@ public class Arbre {
 	 * @return un ArrayList contenant les Stagiaires correspondants aux criteres
 	 */
 	public ArrayList<Stagiaire> rechercheCritere(Map<String, String> mapCriteres){
-//		if(this.isEmpty()) { //verifier si l'arbre est vide 
-//			return null; //retourner null
-//		} else {
-//			ArrayList<Stagiaire> stgArray = new ArrayList<>();
-//			Noeud.readNoeudBin(raf, this.indiceRacine).rechercheCritere(raf, stgArray, new Stagiaire(mapCriteres));
-//			return stgArray;
-//		}
 		ArrayList<Stagiaire> stgArray = new ArrayList<>(); //initialiser un ArrayList vide
 		if(!this.isEmpty()) { //verifier si l'arbre est vide 
 			Noeud.readNoeudBin(raf, this.indiceRacine).rechercheCritere(raf, stgArray, new Stagiaire(mapCriteres)); //lire le 1er noeud et faire la recherche sur lui
+		}
+		return stgArray; //retourner l'ArrayList
+	}
+
+	/**
+	 * methode permettant de recuperer les Stagiaires correspondants aux criteres de recherche et les ajouter dans un ArrayList selon
+	 * l'ordre de l'arbre et selon le mode de recherche souhaité parmis les trois option:
+	 * - contient : l'attribut de stagiaire recherché contient le critere de recherche
+	 * - debut : l'attribut de stagiaire recherché commence avec le critere de recherche
+	 * - exacte : l'attribut de stagiare est le critere recherché
+	 * @param mapCriteres un Map content les differents attributs de recherche
+	 * @param String representant le mode de recherche (contient, debut, exacte)
+	 * @return un ArrayList contenant les Stagiaires correspondants aux criteres
+	 */
+	public ArrayList<Stagiaire> rechercheCritere(Map<String, String> mapCriteres, String mode){
+		ArrayList<Stagiaire> stgArray = new ArrayList<>(); //initialiser un ArrayList vide
+		if(!this.isEmpty() && (mode.equals("contient") || mode.equals("debut") || mode.equals("exacte"))) { //verifier si l'arbre est vide 
+			Noeud.readNoeudBin(raf, this.indiceRacine).rechercheCritere(raf, stgArray, new Stagiaire(mapCriteres), mode); //lire le 1er noeud et faire la recherche sur lui
 		}
 		return stgArray; //retourner l'ArrayList
 	}

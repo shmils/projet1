@@ -373,6 +373,36 @@ public class Noeud {
 			}
 		}
 		return -1;
+	}
+
+	/**
+	 * methode pour verifier si le noeud correspond aux criteres de recherche et l'ajouter en ArrayList et 
+	 * selon le mode de recherche souhaité parmis les trois option:
+	 * - contient : l'attribut de stagiaire recherché contient le critere de recherche
+	 * - debut : l'attribut de stagiaire recherché commence avec le critere de recherche
+	 * - exacte : l'attribut de stagiare est le critere recherché
+	 * @param raf un RandomAccessFile donant accès au fichier binaire ouvert
+	 * @param stgArray stgArray l'ArrayList à remplir avec le noeud et ses descendants selon les criteres de recherche
+	 * @param String representant le mode de recherche (contient, debut, exacte)
+	 * @param cleCritere Stagiaire avec les differents attributs recherchés
+	 */
+	public void rechercheCritere(RandomAccessFile raf, ArrayList<Stagiaire> stgArray, Stagiaire cleCritere,
+			String mode) {
+		if(this.indiceFG != -1) { //verifier si FG existe
+			Noeud fg = Noeud.readNoeudBin(raf, indiceFG); //lire le fils gauche
+			fg.rechercheCritere(raf, stgArray, cleCritere, mode); //appel recursif sur le FG
+		}
+		if( this.cle.verifierCritere(cleCritere, mode) ) { //verifier si le cle actuel correspond aux criteres
+			stgArray.add(cle); //ajouter le cle actuel à l'ArrayList
+		}
+		if(this.indiceDB != -1) { //cas de doublons
+			Noeud db = Noeud.readNoeudBin(raf, indiceDB);
+			db.rechercheCritere(raf, stgArray, cleCritere, mode);
+		}
+		if(this.indiceFD != -1) { //cas de Fils Droit
+			Noeud fd = Noeud.readNoeudBin(raf, indiceFD);
+			fd.rechercheCritere(raf, stgArray, cleCritere, mode);
+		}
 	}	
 	
 }

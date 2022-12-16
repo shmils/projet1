@@ -258,5 +258,46 @@ public class Stagiaire extends Personne{
 				(cleCritere.nomFormation == null || this.nomFormation.startsWith(cleCritere.nomFormation)) &&
 				(cleCritere.anneePromo == null || this.anneePromo.startsWith(cleCritere.anneePromo)));
 	}
+	
+	/**
+	 * methode permettant de verifier si les attributs du stagiaire commence 
+	 * avec les attributs d'un stagiaire recherché s'ils ne sont pas null et 
+	 * selon le mode de recherche souhaité parmis les trois option:
+	 * - contient : l'attribut de stagiaire recherché contient le critere de recherche
+	 * - debut : l'attribut de stagiaire recherché commence avec le critere de recherche
+	 * - exacte : l'attribut de stagiare est le critere recherché
+	 * @param cleCritere un stagiare contenant les attributs recherché
+	 * @param String representant le mode de recherche (contient, debut, exacte)
+	 * @return true si tous les attribut du stagiaire commence avec les attributs (pas null) de cleCritere 
+	 * false si non
+	 */	
+	public boolean verifierCritere(Stagiaire cleCritere, String mode) {
+		switch (mode) {
+		case "contient": {
+			return ((cleCritere.getNom() == null || this.getNom().contains(cleCritere.getNom()))
+					&& (cleCritere.getPrenom() == null || this.getPrenom().contains(cleCritere.getPrenom()))
+					&& (cleCritere.localisation == null || this.localisation.contains(cleCritere.localisation))
+					&& (cleCritere.nomFormation == null || this.nomFormation.contains(cleCritere.nomFormation))
+					&& (cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo)));
+		}
+		case "debut": {
+			return ((cleCritere.getNom() == null || this.getNom().startsWith(cleCritere.getNom()))
+					&& (cleCritere.getPrenom() == null || this.getPrenom().startsWith(cleCritere.getPrenom()))
+					&& (cleCritere.localisation == null || this.localisation.startsWith(cleCritere.localisation))
+					&& (cleCritere.nomFormation == null || this.nomFormation.startsWith(cleCritere.nomFormation))
+					&& (cleCritere.anneePromo == null || this.anneePromo.startsWith(cleCritere.anneePromo)));
+		}
+		case "exacte": {
+			return ((cleCritere.getNom() == null || this.getNom().contains(cleCritere.getNom()))
+					&& (cleCritere.getPrenom() == null || this.getPrenom().contains(cleCritere.getPrenom()))
+					&& (cleCritere.localisation == null || this.localisation.contains(cleCritere.localisation))
+					&& (cleCritere.nomFormation == null || this.nomFormation.contains(cleCritere.nomFormation))
+					&& (cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo)));
+		}
+		default: {
+			return false;
+		}
+		}
+	}
 
 }
