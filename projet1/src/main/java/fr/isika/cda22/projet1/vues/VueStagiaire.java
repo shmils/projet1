@@ -466,7 +466,7 @@ public class VueStagiaire extends Scene {
 		btnSupprimerStagiaire.setDisable(true); //desactiver le btnSupprimerStagiaire
 		fenetre.getChildren().remove(vbTableau);
 		if(isAdmin) {
-			vbTableau = new vbTableauEditable(monArbre);
+			vbTableau = new vbTableauEditable(monArbre); //initialiser vbTableauEditable
 		} else {
 			vbTableau = new vbTableau();; //initialiser vbTableau
 		}

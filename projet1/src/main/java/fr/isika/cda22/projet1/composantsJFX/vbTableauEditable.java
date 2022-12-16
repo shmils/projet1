@@ -27,7 +27,7 @@ public class vbTableauEditable extends vbTableau {
 			public void handle(CellEditEvent<Stagiaire, String> event) {
                 Stagiaire ancienStg = (Stagiaire) event.getTableView().getItems().get(
                         event.getTablePosition().getRow());
-                Stagiaire nvStg = ancienStg.clone();
+                Stagiaire nvStg = new Stagiaire(ancienStg);
                 if(col.equals(nomCol)) {
                 	nvStg.setNom(event.getNewValue());
                 }

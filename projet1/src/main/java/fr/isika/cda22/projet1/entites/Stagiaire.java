@@ -54,12 +54,11 @@ public class Stagiaire extends Personne{
 	}
 	
 	/**
-	 * methode permettant de cloner/copy un stagiaire
-	 * @param this Stagiaire a cloner
-	 * @return Stagiaire copie de s
+	 * Constructeur permettant de creer un copy d'un stagiaire
+	 * @param this Stagiaire a copié
 	 */
-	public Stagiaire clone() {
-		return new Stagiaire(this.getNom(), this.getPrenom(), this.getLocalisation(), this.getNomFormation(), this.getAnneePromo());
+	public Stagiaire(Stagiaire stg){
+		this(stg.getNom(), stg.getPrenom(), stg.getLocalisation(), stg.getNomFormation(), stg.getAnneePromo());
 	}
 	
 	//getters & setters
