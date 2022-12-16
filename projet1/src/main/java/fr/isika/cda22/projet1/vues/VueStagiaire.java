@@ -402,7 +402,6 @@ public class VueStagiaire extends Scene {
 		critere.getSelectionModel().select(Integer); //preselectionner l'element de l'indice Integer 
 		TextField tf = new TextField(); //initialiser un TextField
 		tf.textProperty().addListener((ob, oldValue, newValue) -> {
-//			btnRechercher.fire();
 			if(tgModeRecherche.getSelectedToggle() != null) {
 				handleRechercheMode();
 			} else {
@@ -518,6 +517,12 @@ public class VueStagiaire extends Scene {
 		rbDebut.setSelected(false);
 		fenetre.getChildren().add(2, vbTableau);
 		refreshTable(); //retablir le tableau
+		vbTableau.getTable().getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> { //ajouter un event handler au changement de la selection de tableau
+		    if (newSelection != null) { //quand on select une ligne de tableau
+		    	btnSupprimerStagiaire.setDisable(!isAdmin); //activer btnSupprimerStagiaire
+		    	btnModifierStagiaire.setDisable(!isAdmin); //activer btnModifierStagiaire
+		    }
+		});
 	}
 	
 
