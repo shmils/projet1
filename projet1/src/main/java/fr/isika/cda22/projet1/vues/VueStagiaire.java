@@ -60,7 +60,7 @@ public class VueStagiaire extends Scene {
 
 	private static final String[] LIST_CRITERES = {"Nom", "Prenom", "Localisation", 
 			"Nom de la Formation", "Annee Promo" };
-	
+	private VBox fenetre;
 	private vbTableau vbTableau;
 	private ArrayList<String> listCriteres;
 	private Arbre monArbre;
@@ -150,7 +150,7 @@ public class VueStagiaire extends Scene {
 		super(new VBox(), 700, 800); 
 
 		//recuperer le root de la scene
-		VBox fenetre = (VBox) this.getRoot(); 
+		fenetre = (VBox) this.getRoot(); 
 		
 		// Fond en couleur de l'arrière plan
 		fenetre.setStyle("-fx-background-color:beige");
@@ -296,7 +296,12 @@ public class VueStagiaire extends Scene {
 		monArbre = new Arbre("src/main/java/fr/isika/cda22/projet1/fichiers/arbre2.bin"); //initialiser monArbre
 		
 //		vbTableau  = new vbTableau(); //initialiser vbTableau
-		vbTableau  = new vbTableauEditable(monArbre);
+//		vbTableau  = new vbTableauEditable(monArbre);
+		if(isAdmin) {
+			vbTableau  = new vbTableauEditable(monArbre);
+		} else {
+			vbTableau  = new vbTableau(); //initialiser vbTableau
+		}
 		vbTableau.setMaxHeight(550); //
 		vbTableau.setPadding(new Insets(10));
 		refreshTable(); //retablir le tableau
@@ -454,12 +459,19 @@ public class VueStagiaire extends Scene {
 	 * methode permettant de reinitialiser les differents composant de la VueStagiaire
 	 */
 	public void reInit() {
-		refreshTable(); //retablir le tableau
 		vbCriteres.getChildren().clear(); //supprimer tous les hbCritere de vbCriteres
 		vbCriteres.getChildren().add(creerHbCritere(0));  //en ajouter un
 		btnSupprimerListe.setDisable(!isAdmin);
 		btnModifierStagiaire.setDisable(true); //desactiver le btnModifierStagiaire
 		btnSupprimerStagiaire.setDisable(true); //desactiver le btnSupprimerStagiaire
+		fenetre.getChildren().remove(vbTableau);
+		if(isAdmin) {
+			vbTableau = new vbTableauEditable(monArbre);
+		} else {
+			vbTableau = new vbTableau();; //initialiser vbTableau
+		}
+		fenetre.getChildren().add(2, vbTableau);
+		refreshTable(); //retablir le tableau
 	}
 	
 }
