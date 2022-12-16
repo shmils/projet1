@@ -238,30 +238,25 @@ public class Stagiaire extends Personne{
 	 */
 	public boolean verifierCritere(Stagiaire cleCritere) {
 		//verifier si chaque attribut du stagiaire est egal aux attributs non null de cleCritere
-//		if( (cleCritere.getNom() == null || this.getNom().equals(cleCritere.getNom())) &&
+//		return ((cleCritere.getNom() == null || this.getNom().equals(cleCritere.getNom())) &&
 //				(cleCritere.getPrenom() == null || this.getPrenom().equals(cleCritere.getPrenom()))	&&
 //				(cleCritere.localisation == null || this.localisation.equals(cleCritere.localisation)) &&
 //				(cleCritere.nomFormation == null || this.nomFormation.equals(cleCritere.nomFormation)) &&
-//				(cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo))) {
-//			return true;
-//		}
+//				(cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo)));
+
 		//verifier si chaque attribut du stagiaire contient avec les attributs non null de cleCritere
-//		if( (cleCritere.getNom() == null || this.getNom().contains(cleCritere.getNom())) &&
+//		return ((cleCritere.getNom() == null || this.getNom().contains(cleCritere.getNom())) &&
 //				(cleCritere.getPrenom() == null || this.getPrenom().contains(cleCritere.getPrenom()))	&&
 //				(cleCritere.localisation == null || this.localisation.contains(cleCritere.localisation)) &&
 //				(cleCritere.nomFormation == null || this.nomFormation.contains(cleCritere.nomFormation)) &&
-//				(cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo))) {
-//			return true;
-//		}
+//				(cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo)));
+		
 		//verifier si chaque attribut du stagiaire commence avec les attributs non null de cleCritere
-		if( (cleCritere.getNom() == null || this.getNom().startsWith(cleCritere.getNom())) &&
+		return ((cleCritere.getNom() == null || this.getNom().startsWith(cleCritere.getNom())) &&
 				(cleCritere.getPrenom() == null || this.getPrenom().startsWith(cleCritere.getPrenom()))	&&
 				(cleCritere.localisation == null || this.localisation.startsWith(cleCritere.localisation)) &&
 				(cleCritere.nomFormation == null || this.nomFormation.startsWith(cleCritere.nomFormation)) &&
-				(cleCritere.anneePromo == null || this.anneePromo.startsWith(cleCritere.anneePromo))) {
-			return true;
-		}
-		return false;
+				(cleCritere.anneePromo == null || this.anneePromo.startsWith(cleCritere.anneePromo)));
 	}
 
 }

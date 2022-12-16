@@ -71,6 +71,7 @@ public class VueStagiaire extends Scene {
 	private ModelButton btnImporter;
 	private ModelButton btnTelecharger;
 	private ModelButton btnSupprimerListe;
+	private ModelButton btnRechercher;
 	private VBox vbCriteres;
 	private boolean isAdmin;
 	
@@ -195,7 +196,7 @@ public class VueStagiaire extends Scene {
 		ModelButton btnSupprimerCritere = new ModelButton("-");
 		btnSupprimerCritere.setDisable(true);
 		
-		ModelButton btnRechercher = new ModelButton("Rechercher");
+		btnRechercher = new ModelButton("Rechercher");
 		ModelButton btnResetTableau = new ModelButton("Retablir Tableau");
 		
 		VBox vbBtnRecherche = new VBox(2,btnRechercher ,btnAjouterCritere, btnSupprimerCritere, btnResetTableau );
@@ -365,15 +366,19 @@ public class VueStagiaire extends Scene {
 	 * @return HBox 
 	 */
 	public HBox creerHbCritere(int Integer) {
-		HBox HB = new HBox(5); //initialiser un HBox avec un gap de 5
+		HBox hb = new HBox(5); //initialiser un HBox avec un gap de 5
 		ChoiceBox critere = new ChoiceBox(); //initialiser un ChoiceBox
 		critere.setPrefWidth(150);
 		ObservableList<String> listCriteres = FXCollections.observableArrayList(LIST_CRITERES); //creer un ObservableList avec la LIST_CRITERES
 		critere.setItems(listCriteres);	//ajouter la OL comme items de ChoiceBox
 		critere.getSelectionModel().select(Integer); //preselectionner l'element de l'indice Integer 
-		TextField TF = new TextField(); //initialiser un TextField
-		HB.getChildren().addAll(critere, TF); //ajouter les deux dans le HBox
-		return HB; //retourner le HB
+		TextField tf = new TextField(); //initialiser un TextField
+		tf.textProperty().addListener((ob, oldValue, newValue) -> {
+//			btnRechercher.fire();
+			handleRecherche();
+		});
+		hb.getChildren().addAll(critere, tf); //ajouter les deux dans le HBox
+		return hb; //retourner le HB
 	}
 	
 	/**
@@ -472,6 +477,18 @@ public class VueStagiaire extends Scene {
 		}
 		fenetre.getChildren().add(2, vbTableau);
 		refreshTable(); //retablir le tableau
+	}
+	
+
+	public void handleRecherche() {
+		Map<String,String> monMap = new HashMap<>(); //instancie un HashMap
+		for(Node hb : vbCriteres.getChildren()){ //pour chaque hb contenu dans vbCriteres
+		ChoiceBox cb = (ChoiceBox) ((HBox)hb).getChildren().get(0); // recuperer le cb
+		TextField tf = (TextField) ((HBox)hb).getChildren().get(1); // recuperer le tf
+		monMap.put(cb.getValue().toString(), tf.getText()); // ajouter le pair (valeur cb, text de tf) dans monMap
+		}				
+		ArrayList<Stagiaire> stgs = monArbre.rechercheCritere(monMap); //recherche dans l'arbre avec monMap et stocker le resultat en ArrayList
+		vbTableau.setListeStagiaire(stgs); //actualiser ListStagiaire de vbTableau
 	}
 	
 }

@@ -63,8 +63,9 @@ public interface Verificateur {
 	public static String capitalizeWord(String word) {
 		if(word.length() > 1) { //verifeir si le string contient > 1 char
 			return word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();	
+		}else {
+			return word.toUpperCase();
 		}
-		return word;
 	}
 	
 	/**
