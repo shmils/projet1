@@ -295,7 +295,8 @@ public class VueStagiaire extends Scene {
 		// Insérer le tableau vueTableau 
 		monArbre = new Arbre("src/main/java/fr/isika/cda22/projet1/fichiers/arbre2.bin"); //initialiser monArbre
 		
-		vbTableau  = new vbTableau(); //initialiser vbTableau
+//		vbTableau  = new vbTableau(); //initialiser vbTableau
+		vbTableau  = new vbTableauEditable(monArbre);
 		vbTableau.setMaxHeight(550); //
 		vbTableau.setPadding(new Insets(10));
 		refreshTable(); //retablir le tableau

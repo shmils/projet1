@@ -20,8 +20,13 @@ import javafx.scene.layout.VBox;
  */
 public class vbTableau extends VBox {
 	
-	private ArrayList<Stagiaire> listeStagiaire;
-	private TableView<Stagiaire> table;
+	protected ArrayList<Stagiaire> listeStagiaire;
+	protected TableView<Stagiaire> table;
+	protected TableColumn<Stagiaire, String> nomCol;
+	protected TableColumn<Stagiaire, String> prenomCol;
+	protected TableColumn<Stagiaire, String> localisationCol;
+	protected TableColumn<Stagiaire, String> nomPromoCol;
+	protected TableColumn<Stagiaire, String> anneePromoCol;
 	
 	/**
 	 * methode permettant d'acceder au tableau
@@ -71,30 +76,30 @@ public class vbTableau extends VBox {
 		// Création des cinq colonnes
 
 		// Nom
-		TableColumn<Stagiaire, String> nomCol = new TableColumn<Stagiaire, String>("Nom");
+		nomCol = new TableColumn<Stagiaire, String>("Nom");
 		nomCol.setMinWidth(120);
 		// Spécifier comment remplir la donnée pour chaque cellule de cette colonne
 		nomCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("nom"));
 		
 		// Prénom
-		TableColumn<Stagiaire, String> prenomCol = new TableColumn<Stagiaire, String>("Prénom");
+		prenomCol = new TableColumn<Stagiaire, String>("Prénom");
 		prenomCol.setMinWidth(120);
 
 		prenomCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("prenom"));
 
 		// Localisation
-		TableColumn<Stagiaire, String> localisationCol = new TableColumn<Stagiaire, String>("Localisation");
+		localisationCol = new TableColumn<Stagiaire, String>("Localisation");
 		localisationCol.setMinWidth(120);
 
 		localisationCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("localisation"));
 
 		// Nom de la Formation
-		TableColumn<Stagiaire, String> nomPromoCol = new TableColumn<Stagiaire, String>("Nom de la \nPromotion");
+		nomPromoCol = new TableColumn<Stagiaire, String>("Nom de la \nPromotion");
 		nomPromoCol.setMinWidth(120);
 		nomPromoCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("nomFormation"));
 		
 		// Année de la promotion
-		TableColumn<Stagiaire, String> anneePromoCol = new TableColumn<Stagiaire, String>("Année de la \nPromotion");
+		anneePromoCol = new TableColumn<Stagiaire, String>("Année de la \nPromotion");
 		anneePromoCol.setMinWidth(120);
 		anneePromoCol.setCellValueFactory(new PropertyValueFactory<Stagiaire, String>("anneePromo"));
 
