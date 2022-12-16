@@ -36,9 +36,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -72,6 +74,10 @@ public class VueStagiaire extends Scene {
 	private ModelButton btnTelecharger;
 	private ModelButton btnSupprimerListe;
 	private ModelButton btnRechercher;
+	private ToggleGroup tgModeRecherche;
+	private RadioButton rbDebut;
+	private RadioButton rbContient;
+	private RadioButton rbExacte;
 	private VBox vbCriteres;
 	private boolean isAdmin;
 	
@@ -199,7 +205,29 @@ public class VueStagiaire extends Scene {
 		btnRechercher = new ModelButton("Rechercher");
 		ModelButton btnResetTableau = new ModelButton("Retablir Tableau");
 		
-		VBox vbBtnRecherche = new VBox(2,btnRechercher ,btnAjouterCritere, btnSupprimerCritere, btnResetTableau );
+		Label lbModeRecherche = new Label("Mode :");
+		lbModeRecherche.setTextFill(Color.SADDLEBROWN);
+		lbModeRecherche.setFont(Font.font("Calibri",14));
+		
+		tgModeRecherche = new ToggleGroup();
+		rbDebut = new RadioButton("Debut");
+		rbDebut.setToggleGroup(tgModeRecherche);
+		rbDebut.setStyle("-fx-text-fill: saddlebrown");
+		
+		rbContient = new RadioButton("Contient");
+		rbContient.setToggleGroup(tgModeRecherche);
+		rbContient.setStyle("-fx-text-fill: saddlebrown");
+		
+		rbExacte = new RadioButton("Exacte");
+		rbExacte.setToggleGroup(tgModeRecherche);
+		rbExacte.setStyle("-fx-text-fill: saddlebrown");
+		
+		HBox hbModeRecherche = new HBox(5, lbModeRecherche, rbDebut, rbContient, rbExacte);
+		hbModeRecherche.setAlignment(Pos.BOTTOM_CENTER);
+		
+		VBox vbCritereMode = new VBox(10, vbCriteres, hbModeRecherche);
+		
+		VBox vbBtnRecherche = new VBox(2,btnRechercher ,btnAjouterCritere, btnSupprimerCritere, btnResetTableau);
 
 		// méthode des bouton ajouter, supprimer rechercher, et reset
 		btnAjouterCritere.setOnAction(new EventHandler<ActionEvent>() {
@@ -269,7 +297,6 @@ public class VueStagiaire extends Scene {
 		//bouton supprimer tout
 		btnSupprimerListe = new ModelButton("Clear");
 		btnSupprimerListe.setAlignment(Pos.BOTTOM_CENTER);
-//		btnSupprimerListe.setDisable(!isAdmin);
 		btnSupprimerListe.setOnAction(event -> {
 			monArbre.clear();
 			this.reInit();
@@ -284,7 +311,8 @@ public class VueStagiaire extends Scene {
 		// -----------------Fin de la Vbox Importer et telecharger-------------------
 		
 		// HBox contenant les btns et vbCriteres
-		HBox hbDispositionRecherche = new HBox(5, vbCriteres, vbBtnRecherche, vbImporterTelecharger);
+//		HBox hbDispositionRecherche = new HBox(5, vbCriteres, vbBtnRecherche, vbImporterTelecharger);
+		HBox hbDispositionRecherche = new HBox(5, vbCritereMode, vbBtnRecherche, vbImporterTelecharger);
 		hbDispositionRecherche.setPadding(new Insets(10));
 		
 		// HBox contenant lbListStagiaires et hbDispositionRecherche
@@ -375,7 +403,11 @@ public class VueStagiaire extends Scene {
 		TextField tf = new TextField(); //initialiser un TextField
 		tf.textProperty().addListener((ob, oldValue, newValue) -> {
 //			btnRechercher.fire();
-			handleRecherche();
+			if(tgModeRecherche.getSelectedToggle() != null) {
+				handleRechercheMode();
+			} else {
+				handleRecherche();
+			}
 		});
 		hb.getChildren().addAll(critere, tf); //ajouter les deux dans le HBox
 		return hb; //retourner le HB
@@ -481,6 +513,9 @@ public class VueStagiaire extends Scene {
 		} else {
 			vbTableau = new vbTableau();; //initialiser vbTableau
 		}
+		rbContient.setSelected(false);
+		rbExacte.setSelected(false);
+		rbDebut.setSelected(false);
 		fenetre.getChildren().add(2, vbTableau);
 		refreshTable(); //retablir le tableau
 	}
@@ -497,6 +532,22 @@ public class VueStagiaire extends Scene {
 		monMap.put(cb.getValue().toString(), tf.getText()); // ajouter le pair (valeur cb, text de tf) dans monMap
 		}				
 		ArrayList<Stagiaire> stgs = monArbre.rechercheCritere(monMap); //recherche dans l'arbre avec monMap et stocker le resultat en ArrayList
+		vbTableau.setListeStagiaire(stgs); //actualiser ListStagiaire de vbTableau
+	}
+	
+	/**
+	 * methode permettant de recuperer les differents clés de recherche et lalancer
+	 */
+	public void handleRechercheMode() {
+		Map<String,String> monMap = new HashMap<>(); //instancie un HashMap
+		for(Node hb : vbCriteres.getChildren()){ //pour chaque hb contenu dans vbCriteres
+		ChoiceBox cb = (ChoiceBox) ((HBox)hb).getChildren().get(0); // recuperer le cb
+		TextField tf = (TextField) ((HBox)hb).getChildren().get(1); // recuperer le tf
+		monMap.put(cb.getValue().toString(), tf.getText()); // ajouter le pair (valeur cb, text de tf) dans monMap
+		}
+		RadioButton rb = (RadioButton) tgModeRecherche.getSelectedToggle();
+		String mode = rb.getText();
+		ArrayList<Stagiaire> stgs = monArbre.rechercheCritere(monMap, mode.toLowerCase()); //recherche dans l'arbre avec monMap et stocker le resultat en ArrayList
 		vbTableau.setListeStagiaire(stgs); //actualiser ListStagiaire de vbTableau
 	}
 	

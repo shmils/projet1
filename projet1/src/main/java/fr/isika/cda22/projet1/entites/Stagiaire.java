@@ -278,7 +278,7 @@ public class Stagiaire extends Personne{
 					&& (cleCritere.getPrenom() == null || this.getPrenom().contains(cleCritere.getPrenom()))
 					&& (cleCritere.localisation == null || this.localisation.contains(cleCritere.localisation))
 					&& (cleCritere.nomFormation == null || this.nomFormation.contains(cleCritere.nomFormation))
-					&& (cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo)));
+					&& (cleCritere.anneePromo == null || this.anneePromo.contains(cleCritere.anneePromo)));
 		}
 		case "debut": {
 			return ((cleCritere.getNom() == null || this.getNom().startsWith(cleCritere.getNom()))
@@ -288,11 +288,11 @@ public class Stagiaire extends Personne{
 					&& (cleCritere.anneePromo == null || this.anneePromo.startsWith(cleCritere.anneePromo)));
 		}
 		case "exacte": {
-			return ((cleCritere.getNom() == null || this.getNom().contains(cleCritere.getNom()))
-					&& (cleCritere.getPrenom() == null || this.getPrenom().contains(cleCritere.getPrenom()))
-					&& (cleCritere.localisation == null || this.localisation.contains(cleCritere.localisation))
-					&& (cleCritere.nomFormation == null || this.nomFormation.contains(cleCritere.nomFormation))
-					&& (cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo)));
+			return ((cleCritere.getNom() == null || this.getNom().equals(cleCritere.getNom())) &&
+					(cleCritere.getPrenom() == null || this.getPrenom().equals(cleCritere.getPrenom()))	&&
+					(cleCritere.localisation == null || this.localisation.equals(cleCritere.localisation)) &&
+					(cleCritere.nomFormation == null || this.nomFormation.equals(cleCritere.nomFormation)) &&
+					(cleCritere.anneePromo == null || this.anneePromo.equals(cleCritere.anneePromo)));
 		}
 		default: {
 			return false;
