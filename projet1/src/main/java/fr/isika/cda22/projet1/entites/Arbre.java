@@ -196,15 +196,7 @@ public class Arbre {
 		}
 		this.indiceRacine = supprimerNoeud(this.indiceRacine, cleSupprimer); //appeler la methode de supprimer sur le noeud racine et stocker le resultat dans l'indiceRacine
 		if(this.indiceRacine == -1) { //si le nouveau indiceRacine = -1, c.a.d on a supprimer tous les noeuds dans l'arbre (aucun noued n'est desormais accessible sur le fichier binaire)
-			try {
-				raf.close(); //fermer le RandomAccessFile
-				File f = new File(fileName); //recupere le fichier à partir du path fileName
-				f.delete(); //supprimer le fichier
-				raf = new RandomAccessFile(new File(fileName), "rw"); //creer un nouveau RandomAccessFile avec le meme fileName
-				this.indiceRacine = 0; //reinitialiser indiceRacine à 0
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			this.clear(); //appel à la methode clear pour reinitialiser l'arbre et le fichier associé
 		}
 	}
 	
@@ -318,5 +310,19 @@ public class Arbre {
 		}
     }
 	
+	/**
+	 * methode permettant de supprimer reinitaliser le fichier binaire à vide
+	 */
+	public void clear() {
+		try {
+			raf.close();//fermer le RandomAccessFile
+			File f = new File(fileName); //recupere le fichier à partir du path fileName
+			f.delete(); //supprimer le fichier
+			raf = new RandomAccessFile(new File(fileName), "rw"); //creer un nouveau RandomAccessFile avec le meme fileName
+			this.indiceRacine = 0; //reinitialiser indiceRacine à 0
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
 	
 }

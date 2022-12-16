@@ -226,7 +226,7 @@ public class VueLogin extends Scene{
 		
 		//on instacie msg Erreur
 		msgErreur = new Label();
-		msgErreur.setText("username ou mot de passe sont erronées!\n"
+		msgErreur.setText("nom utilisateur ou mot de passe sont erronées!\n"
 				+ "Veuillez reessayer");
 		msgErreur.setTextFill(Color.RED);
 		msgErreur.setFont(Font.font("Calibri",15));

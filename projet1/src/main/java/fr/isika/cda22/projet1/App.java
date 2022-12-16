@@ -46,8 +46,8 @@ public class App extends Application {
     		boolean isAdmin = vueLogin.getCbAdmin().isSelected();
     		if(vueLogin.authentifier(vueLogin.getTfNom().getText(), 
     				vueLogin.getMotdePasse(), isAdmin)) {
-    			vueListeStagiaire.reInit();
     			vueListeStagiaire.setIsAdmin(isAdmin);
+    			vueListeStagiaire.reInit();
     			stage.setScene(vueListeStagiaire);
         		stage.setTitle("My Intern - Liste");
     		} else {
@@ -138,6 +138,7 @@ public class App extends Application {
     }
     
     public void retourEnListe(Stage stage) {
+    	vueListeStagiaire.reInit();
     	stage.setScene(vueListeStagiaire);
 		stage.setTitle("My Intern - Liste");
     }

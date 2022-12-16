@@ -70,6 +70,7 @@ public class VueStagiaire extends Scene {
 	private ModelButton seDeconnecter;
 	private ModelButton btnImporter;
 	private ModelButton btnTelecharger;
+	private ModelButton btnSupprimerListe;
 	private VBox vbCriteres;
 	private boolean isAdmin;
 	
@@ -189,9 +190,9 @@ public class VueStagiaire extends Scene {
 		vbCriteres.getChildren().add(creerHbCritere(0)); //ajouter un hbCritere 
 
 		// Hbox avec les boutons
-		ModelButton btnAjouterCritere = new ModelButton("Ajouter"); 
+		ModelButton btnAjouterCritere = new ModelButton("+"); 
 		
-		ModelButton btnSupprimerCritere = new ModelButton("Supprimer");
+		ModelButton btnSupprimerCritere = new ModelButton("-");
 		btnSupprimerCritere.setDisable(true);
 		
 		ModelButton btnRechercher = new ModelButton("Rechercher");
@@ -251,7 +252,8 @@ public class VueStagiaire extends Scene {
 		});
 		
 		btnResetTableau.setOnAction(event ->{
-			refreshTable(); //reinitialiser le tableau
+//			refreshTable(); //reinitialiser le tableau
+			this.reInit(); //reinitialiser la vue
 		});
 		
 		// -----------------Début de la Vbox Importer et telecharger-------------------
@@ -263,12 +265,21 @@ public class VueStagiaire extends Scene {
 		btnTelecharger = new ModelButton("Télécharger");
 		btnTelecharger.setAlignment(Pos.BOTTOM_CENTER);
 		
+		//bouton supprimer tout
+		btnSupprimerListe = new ModelButton("Clear");
+		btnSupprimerListe.setAlignment(Pos.BOTTOM_CENTER);
+//		btnSupprimerListe.setDisable(!isAdmin);
+		btnSupprimerListe.setOnAction(event -> {
+			monArbre.clear();
+			this.reInit();
+		});
+		
 		// VBox pour gerer les btns telecharger et importer
 		VBox vbImporterTelecharger = new VBox(5);
 		vbImporterTelecharger.setPadding(new Insets(10));
 		vbImporterTelecharger.setAlignment(Pos.CENTER);
 		vbImporterTelecharger.setPrefWidth(240);
-		vbImporterTelecharger.getChildren().addAll(btnImporter, btnTelecharger);
+		vbImporterTelecharger.getChildren().addAll(btnImporter, btnTelecharger, btnSupprimerListe);
 		// -----------------Fin de la Vbox Importer et telecharger-------------------
 		
 		// HBox contenant les btns et vbCriteres
@@ -445,6 +456,7 @@ public class VueStagiaire extends Scene {
 		refreshTable(); //retablir le tableau
 		vbCriteres.getChildren().clear(); //supprimer tous les hbCritere de vbCriteres
 		vbCriteres.getChildren().add(creerHbCritere(0));  //en ajouter un
+		btnSupprimerListe.setDisable(!isAdmin);
 		btnModifierStagiaire.setDisable(true); //desactiver le btnModifierStagiaire
 		btnSupprimerStagiaire.setDisable(true); //desactiver le btnSupprimerStagiaire
 	}
