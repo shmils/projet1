@@ -17,6 +17,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -223,6 +224,13 @@ public class VueLogin extends Scene{
 		btnLogin.setTextFill(Color.SADDLEBROWN);
 		btnLogin.setFont(Font.font("Calibri",15));
 		btnLogin.setAlignment(Pos.CENTER);
+		
+		root.addEventHandler(javafx.scene.input.KeyEvent.KEY_PRESSED, event ->{
+			if(event.getCode() == KeyCode.ENTER) {
+				btnLogin.fire();
+				event.consume();
+			}
+		});
 		
 		//on instacie msg Erreur
 		msgErreur = new Label();
